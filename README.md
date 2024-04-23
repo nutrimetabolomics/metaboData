@@ -23,7 +23,7 @@ The root directory contains a comma separated file with information on data (one
 
 - [Metabolomics workbench](https://www.metabolomicsworkbench.org/databases/metabolitedatabase.php)
 
-- [MetabolmeXchange](http://www.metabolomexchange.org/site/)
+- [MetabolomeXchange](http://www.metabolomexchange.org/site/)
 
 - [The gut microbiome-metabolome dataset collection: a curated resource for integrative meta-analysis](https://www.nature.com/articles/s41522-022-00345-5).   Access to data through  [this link](https://github.com/borenstein-lab/microbiome-metabolome-curated-data)
 
