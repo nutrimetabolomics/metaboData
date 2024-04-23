@@ -11,7 +11,7 @@
 
 
 
-<title>README</title>
+<title>description</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -352,59 +352,19 @@ display: none;
 </div>
 
 
-<div id="metabodata" class="section level1">
-<h1>metaboData</h1>
-</div>
-<div id="introduction" class="section level1">
-<h1>Introduction</h1>
-<p>A repository with a few public metabolomics datasets borrowed from
-different public open sources.</p>
-<p>While we don’t come out with a better option the repository will be
-“folder-based”. That is:</p>
+<p>This dataset is used by Sara Herraiz in a tutorial on metabolomics
+data analysis using MetaboAnalyst.</p>
+<p>The data have been downloaded from Metabolomics Workbench and their
+ID is in the file</p>
+<p>The data file is a text (.txt) file structured in two blocks</p>
 <ul>
-<li>Each dataset is contained in a folder named with a short-descriptive
-name with no spaces and no special codes.</li>
-<li>Each folder contains a “description.md” document, written in
-markdown with information about the dataset.</li>
-<li>Eventually a template will be provided to fuill the
-description.</li>
+<li><p>Information abot the study and the data: rows 1:70</p></li>
+<li><p>The data in recrtangular form : rows 71 and below</p></li>
 </ul>
-<p>The root directory contains a comma separated file with information
-on data (one dataset per row) and the following columns: - Folder_name -
-Creation_Date - Created_by - Content_description</p>
-</div>
-<div id="some-public-sources-of-open-data" class="section level1">
-<h1>Some public sources of open data</h1>
-<ul>
-<li><p><a href="https://www.ebi.ac.uk/metabolights">MetaboLights is a
-database for Metabolomics experiments and derived
-information</a></p></li>
-<li><p><a href="https://www.metabolomicsworkbench.org/databases/metabolitedatabase.php">Metabolomics
-workbench</a></p></li>
-<li><p><a href="http://www.metabolomexchange.org/site/">MetabolmeXchange</a></p></li>
-<li><p><a href="https://www.nature.com/articles/s41522-022-00345-5">The
-gut microbiome-metabolome dataset collection: a curated resource for
-integrative meta-analysis</a>. Access to data through <a href="https://github.com/borenstein-lab/microbiome-metabolome-curated-data">this
-link</a></p></li>
-</ul>
-</div>
-<div id="software-for-acquiring-analyzing-metabolomics-data-data" class="section level1">
-<h1>Software for acquiring / analyzing metabolomics data data</h1>
-<ul>
-<li><a href="https://bioconductor.org/packages/release/bioc/vignettes/metabolomicsWorkbenchR/">Bioconductor:
-<code>metabolomicsWorkbenchR</code> package</a></li>
-</ul>
-</div>
-<div id="references" class="section level1">
-<h1>References</h1>
-<ul>
-<li><p><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6835268/">The
-Bioconductor <code>metaRbolomics</code> Toolbox</a> A review of R/Bioc
-packages for managing and analyzing metabolomics data</p></li>
-<li><p><a href="https://www.sciencedirect.com/science/article/pii/S1367593116302083#sec0020">Global
-open data management in metabolomics</a></p></li>
-</ul>
-</div>
+<p>The data can be extracted manually from this dataset or as a
+Bioconductor Summarized Experiment dataset if it is read directly from
+Metabolomics Workbench database using Bioconductor
+<strong><code>metabolomicsWorkbenchR</code></strong> package</p>
 
 
 
