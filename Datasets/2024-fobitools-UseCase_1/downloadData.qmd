@@ -1,10 +1,10 @@
 ---
-title: "dataDownload"
+title: "Data download and preparation for study ST000291"
 author: "Alex Sanchez"
 format: html
 ---
 
-```{r}
+```{r echo=FALSE, message=FALSE}
 if (!require(metabolomicsWorkbenchR)) 
   BiocManager::install("metabolomicsWorkbenchR")
 if (!require(fobitools)) 
@@ -14,6 +14,7 @@ if (!require(SummarizedExperiment))
 
 if (!require(dplyr)) install.packages("dplyr", dep=TRUE)
 if (!require(rvest)) install.packages("rvest", dep=TRUE)
+if (!require(xlsx)) install.packages("xlsx", dep=TRUE)
 
 ```
 # Data download
@@ -130,5 +131,13 @@ write.table(assay(features), sep=";", file="features.csv")
 write.table(pdata, sep=";", file="metadata.csv")
 write.table(metaboliteNames, sep=";",
             file="metaboliteNames.csv")
+```
+
+In order to facilitate exploration to non bioinformatic users a single spreadsheet has been created with each object in one tab. Use it at your own risk.
+
+```{r}
+write.xlsx(assay(features), file="ST000291.xlsx", sheetName = "features", col.names = TRUE, row.names = FALSE, append = FALSE)
+write.xlsx(pdata, file="ST000291.xlsx", sheetName = "metadata", col.names = TRUE, row.names = FALSE, append = TRUE)
+write.xlsx(metaboliteNames, file="ST000291.xlsx", sheetName = "metaboliteNames", col.names = TRUE, row.names = TRUE, append = TRUE)
 ```
 

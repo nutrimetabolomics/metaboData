@@ -11,4 +11,11 @@ The data file is a text (.txt) file structured in two blocks
 The data can be extracted manually from this dataset or as a Bioconductor Summarized Experiment dataset if it is read directly from Metabolomics Workbench database using Bioconductor [**`metabolomicsWorkbenchR`**](https://bioconductor.org/packages/release/bioc/vignettes/metabolomicsWorkbenchR/) package
 
 
-
+In order to preprare the data for the analysis some cleaning is performed on the data.
+- Remove metadata Information
+	-From first rows
+- Remove metabolites names
+	- From last rows
+- Change Factor labels to Before / After
+- Add a letter (B / A) to each sample label, to show to which group it belongs
+- Save file as .csv naming it 
