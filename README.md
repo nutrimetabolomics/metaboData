@@ -8,9 +8,9 @@ While we don't come out with a better option the repository will be "folder-base
 
 - Each dataset is contained in a sub-folder opf the "datasets" folder named with a short-descriptive name with no spaces and no special codes.
 - Each folder contains a "description.md" document, written in markdown with information about the dataset.
-- Eventually a template will be provided to fuill the description.
+- Eventually a template will be provided to fill the description.
 
-As we progress adding more datasets sometime of catalog will be provided.
+As we progress adding more datasets some type of catalog will be provided.
 
 
 # Some public sources of open data
