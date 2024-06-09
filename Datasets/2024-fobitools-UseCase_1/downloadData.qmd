@@ -1,0 +1,134 @@
+---
+title: "dataDownload"
+author: "Alex Sanchez"
+format: html
+---
+
+```{r}
+if (!require(metabolomicsWorkbenchR)) 
+  BiocManager::install("metabolomicsWorkbenchR")
+if (!require(fobitools)) 
+  BiocManager::install("fobitools")
+if (!require(SummarizedExperiment)) 
+  BiocManager::install("SummarizedExperiment")
+
+if (!require(dplyr)) install.packages("dplyr", dep=TRUE)
+if (!require(rvest)) install.packages("rvest", dep=TRUE)
+
+```
+# Data download
+
+This study is composed of two complementary MS analyses, 
+the positive mode (AN000464) and the negative mode (AN000465). 
+Both are downloaded
+
+
+```{r}
+library(metabolomicsWorkbenchR)
+data_negative_mode <- do_query(
+  context = "study",
+  input_item = "analysis_id",
+  input_value = "AN000465",
+  output_item = "SummarizedExperiment")
+
+data_positive_mode <- do_query(
+  context = "study",
+  input_item = "analysis_id",
+  input_value = "AN000464",
+  output_item = "SummarizedExperiment")
+```
+
+The data have been saved into two R objects of class `SummarizedExperiment`. In order to have a more general dataset we continue the steps of the vignette.
+
+
+# Standardize names
+
+First the metabolite names are standardized- This is done using `rvest`package a specialized tool for web scrapping. There are easier and friendlier alternatives.
+
+```{r}
+metaboliteNamesURL <- "https://www.metabolomicsworkbench.org/data/show_metabolites_by_study.php?STUDY_ID=ST000291&SEARCH_TYPE=KNOWN&STUDY_TYPE=MS&RESULT_TYPE=1"
+metaboliteNames <- metaboliteNamesURL %>% 
+  read_html() %>% 
+  html_nodes(".datatable")
+
+metaboliteNames_negative <- metaboliteNames %>%
+  .[[1]] %>%
+  html_table() %>%
+  dplyr::select(`Metabolite Name`, PubChemCompound_ID, `Kegg Id`)
+
+metaboliteNames_positive <- metaboliteNames %>%
+  .[[2]] %>%
+  html_table() %>%
+  dplyr::select(`Metabolite Name`, PubChemCompound_ID, `Kegg Id`)
+
+metaboliteNames <- bind_rows(metaboliteNames_negative, metaboliteNames_positive) %>%
+  dplyr::rename(names = 1, PubChem = 2, KEGG = 3) %>%
+  mutate(KEGG = ifelse(KEGG == "-", "UNKNOWN", KEGG),
+         PubChem = ifelse(PubChem == "-", "UNKNOWN", PubChem)) %>%
+  filter(!duplicated(PubChem))
+```
+
+The names obtained are now assigned to the metabolites,
+
+```{r}
+require(SummarizedExperiment)
+features_negative <- assay(data_negative_mode) %>%
+  dplyr::slice(-n())
+rownames(features_negative) <- rowData(data_negative_mode)$metabolite[1:(length(rowData(data_negative_mode)$metabolite)-1)]
+
+## positive mode features
+features_positive <- assay(data_positive_mode) %>%
+  dplyr::slice(-n())
+rownames(features_positive) <- rowData(data_positive_mode)$metabolite[1:(length(rowData(data_positive_mode)$metabolite)-1)]
+```
+
+Positive and negative values are combined into a unique `features`table.
+
+Object about groups (metadata information) is stored into a single table.
+
+Metabolite names are saved in a third table.
+
+```{r}
+features <- bind_rows(features_negative, features_positive) %>%
+  tibble::rownames_to_column("names") %>%
+  right_join(metaboliteNames, by = "names") %>%
+  select(-names, -KEGG) %>%
+  tibble::column_to_rownames("PubChem")
+
+## metadata
+pdata <- colData(data_negative_mode) %>% # or "data_positive_mode". They are equal
+  as.data.frame() %>%
+  tibble::rownames_to_column("ID") %>%
+  mutate(Treatment = case_when(Treatment == "Baseline urine" ~ "Baseline",
+                               Treatment == "Urine after drinking apple juice" ~ "Apple",
+                               Treatment == "Urine after drinking cranberry juice" ~ "Cranberry"))
+```
+
+These three objects contain all the information that is needed foir further analyses.
+
+```{r}
+dim(assay(features))
+assay(features)[1:10, c(1:5,30:35)]
+```
+
+
+```{r}
+dim(pdata)
+head(pdata)
+```
+
+
+```{r}
+dim(metaboliteNames)
+metaboliteNames[1:10,]
+```
+
+All three objkects are save into separate csv files using ";" as separator, to avoid possible conflicts with commas in metabolite names.
+
+```{r}
+write.table(assay(features), sep=";", file="features.csv")
+write.table(pdata, sep=";", file="metadata.csv")
+write.table(metaboliteNames, sep=";",
+            file="metaboliteNames.csv")
+```
+
