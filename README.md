@@ -10,7 +10,7 @@ While we don't come out with a better option the repository will be "folder-base
 - Each folder contains a "description.md" document, written in markdown with information about the dataset.
 - Eventually a template will be provided to fill the description.
 
-As we progress adding more datasets some type of catalog will be provided.
+The spreadsheet DataC_atalog.xls is an attempyt to provide a quick description of each dataset
 
 
 # Some public sources of open data
