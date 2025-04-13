@@ -1,0 +1,506 @@
+
+---
+title: "Reanálisis de resultados procesados - Estudio ST002993"
+author: "Alex Sanchez"
+date: "`r Sys.Date()`"
+format:
+    html: 
+      toc: true
+      toc-depth: 3
+      code-fold: false
+      fig-width: 8
+      fig-height: 6
+    pdf:
+      toc: true
+      toc-depth: 3
+      fig-width: 8
+      fig-height: 6
+knit:
+  quarto:
+    chunk_options:
+      echo: true
+      cache: false
+      prompt: false
+      tidy: true
+      comment: NA
+      message: false
+      warning: false
+    knit_options:
+      width: 75
+  reference-location: margin
+execute:
+    echo: true
+    message: false
+    warning: false
+editor_options:
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+
+# Información del estudio
+
+Este estudio se basa en el proyecto depositado en MetabolomicsWorkbench:
+
+[https://www.metabolomicsworkbench.org/data/DRCCMetadata.php?Mode=Project&ProjectID=PR001863]()
+
+EL resumen del proyecto en el repositorio es el siguiente:
+
+*La obesidad es el resultado de una interacción entre la predisposición genética y factores ambientales como la dieta, la actividad física, la cultura y el nivel socioeconómico. Los tratamientos personalizados serían ideales, por lo que es necesario identificar características individuales que permitan mejorar la eficacia de las terapias. Por ejemplo, alteraciones genéticas en la vía leptina-melanocortina pueden provocar casos raros de obesidad grave de inicio temprano.*
+
+*La metabolómica tiene el potencial de distinguir entre un estado saludable y uno obeso; sin embargo, diferenciar subgrupos de individuos dentro del espectro de la obesidad sigue siendo un reto. El análisis factorial puede integrar características clínicas y moleculares de los pacientes a partir de diversas fuentes, permitiendo una subclasificación precisa.*
+
+*Este estudio presenta un flujo de trabajo para identificar __metabotipos__, especialmente en contextos donde los estudios clínicos convencionales no logran categorizar adecuadamente a los pacientes. Se estudiaron 110 niños con obesidad (IMC > +2 SDS), genotipados para nueve genes implicados en la vía leptina-melanocortina (CPE, MC3R, MC4R, MRAP2, NCOA1, PCSK1, POMC, SH2B1 y SIM1) y dos genes de receptores de glutamato (GRM7 y GRIK1). De ellos, 55 presentaban variantes raras heterocigotas y 55 no tenían variantes.*
+
+*Se recogieron datos antropométricos y de laboratorio clínico rutinario, y las muestras de suero se procesaron para análisis metabolómicos no dirigidos utilizando GC-q-MS, CE-TOF-MS y U(H)PLC-QTOF-MS/MS en modos de ionización positiva y negativa. Tras el procesamiento de señales y la multialineación, se aplicaron análisis estadísticos multivariantes y univariantes para evaluar la asociación entre los rasgos genéticos y los datos metabolómicos y clínicos.*
+
+*Ni la presencia de variantes genéticas raras heterocigotas ni los datos clínicos rutinarios permitieron identificar subgrupos dentro de los datos metabolómicos. Para descubrir subtipos metabolómicos, se aplicó __análisis factorial[^1]__ sobre una matriz compuesta construida a partir de las cinco plataformas[^2] analíticas. Se identificaron seis factores y tres metabotipos distintos. Se observaron diferencias sutiles pero claras en los lípidos circulantes y en la sensibilidad a la insulina, lo que abre la posibilidad de personalizar el tratamiento en función de la clasificación del paciente dentro de estos subtipos de obesidad.*
+
+
+*La identificación de metabotipos en contextos clínicos presenta desafíos debido a la influencia de múltiples variables no controladas sobre los fenotipos metabólicos. Sin embargo, esta estrategia demuestra su potencial para identificar subconjuntos de pacientes con diagnósticos clínicos similares pero con condiciones metabólicas distintas. Este enfoque pone de relieve la aplicabilidad del análisis factorial para el estudio de metabotipos en diversos escenarios clínicos.*
+
+[^1]: L'estudi original fa servir AF. Aqui fare servir MFA que sembla casi mes raonable al haver plataformes diferents
+
+[^2]: Al repositori nomes hi ha les dades de quatre de les plataformes. La cinquena s'omet de l'anàlisi
+
+
+# Cargar archivos 
+
+Los datos se han descargado del repositorio a un subdirectorio ST002993.
+Para cada plataforma se dispone de dos tipos de archivo
+
+- ST002993_AN0049XX.txt:  Los metadatos
+- ST002993_AN0049XX_Results.txt: Los datos preprocesados
+
+XX: 13, 14, 16, 17
+
+## Resultados
+
+En el estudio se usaron varias plataformas analíticas:
+
+- AN004913 : LC-MS positivo
+- AN004914 → LC-MS negativo
+- AN004916 → CE-MS 
+- AN004917 → GC-MS 
+
+Segn la tecnología, la primera columna se indica como `Mass_RT` y `Mass_MT` que identifican cada pico metabolómico combinando la masa (m/z) con el tiempo.
+
+`Mass_RT` se usa en LC-MS y GC-MS (tiempo de retención), mientras que `Mass_MT` se usa en CE-MS (tiempo de migración). 
+
+Ambos permiten identificar de forma única cada feature y pueden unificarse como `Feature_ID`.
+
+```{r load-data}
+# Cargar tidyverse para manejo de datos
+library(tidyverse)
+
+# Directorio local donde has descargado los .txt
+data_dir <- "../data"  # CAMBIA esta ruta si es necesario
+results_dir <- "../results" 
+
+# Cargar cada archivo
+res13 <- read.delim(file.path(data_dir, "ST002993_AN004913_Results.txt"), check.names = FALSE)
+res14 <- read.delim(file.path(data_dir, "ST002993_AN004914_Results.txt"), check.names = FALSE)
+res16 <- read.delim(file.path(data_dir, "ST002993_AN004916_Results.txt"), check.names = FALSE)
+res17 <- read.delim(file.path(data_dir, "ST002993_AN004917_Results.txt"), check.names = FALSE)
+
+# Renombrar la primera columna en todos
+colnames(res13)[1] <- "Feature_ID"
+colnames(res14)[1] <- "Feature_ID"
+colnames(res16)[1] <- "Feature_ID"
+colnames(res17)[1] <- "Feature_ID"
+```
+
+# Inspección básica y combinación
+
+```{r}
+# Añadir columna 'platform' antes de combinar, para mantener la fuente de cada feature
+
+res13$platform <- "LC_MS_pos"
+res14$platform <- "LC_MS_neg"
+res16$platform <- "CE_MS"
+res17$platform <- "GC_MS"
+
+# Reordenar columnas para asegurar consistencia (Feature_ID primero)
+reorder_cols <- function(df) {
+  df[, c("Feature_ID", sort(setdiff(colnames(df), c("Feature_ID", "platform"))), "platform")]
+}
+
+res13_ord <- reorder_cols(res13)
+res14_ord <- reorder_cols(res14)
+res16_ord <- reorder_cols(res16)
+res17_ord <- reorder_cols(res17)
+
+# Combinar y guardar
+combined_df <- bind_rows(res13_ord, res14_ord, res16_ord, res17_ord)
+write.csv(combined_df,file.path(results_dir, "combined_results_aligned.csv"), row.names = FALSE)
+
+# Guardar plataforma y ID antes del preprocesamiento
+feature_ids <- combined_df$Feature_ID
+platforms <- combined_df$platform
+data_matrix <- combined_df[, !(colnames(combined_df) %in% c("Feature_ID", "platform"))]
+rownames(data_matrix) <- feature_ids
+
+```
+
+## Metadatos
+
+Los archivos de metadatos contienen la información de forma no estructurada por lo que se utilizan expresiones regulares para extraerla.
+
+En primer lugar se obtiene el tipo de obesidad de cada individuo, determinado a partir de su análisis genético.
+
+```{r}
+meta_files <- list.files(data_dir, pattern = "ST002993_AN0049[^_]*\\.txt$", full.names = TRUE)
+
+all_factors <- map_dfr(meta_files, function(file) {
+  lines <- readLines(file)
+  factor_lines <- grep("SUBJECT_SAMPLE_FACTORS", lines, value = TRUE)
+  split_lines <- str_split(factor_lines, "\\t+", simplify = TRUE)
+
+  as_tibble(split_lines[, 1:5]) %>%
+    select(sample_id = V3, factor_info = V4) %>%
+    mutate(obesity_type = str_remove(factor_info, "Factor:")) %>%
+    select(sample_id, obesity_type)
+})
+
+# Eliminar duplicados (por si acaso)
+all_factors <- distinct(all_factors)
+# Verificar
+head(all_factors)
+```
+
+Las filas de la tabla se reordenan para que tengan el mismo orden que las columnas d ela matriz de datos
+
+```{r}
+# Extraer el orden de las muestras (columnas)
+sample_order <- colnames(data_matrix)
+
+# Limpiar nombres (por si acaso)
+all_factors <- all_factors %>%
+  mutate(sample_id = trimws(sample_id))
+
+# Paso 3: Filtrar y reordenar los metadatos según los datos
+metadata_aligned <- all_factors %>%
+  filter(sample_id %in% sample_order) %>%
+  arrange(factor(sample_id, levels = sample_order))
+
+# Paso 4: Verificación
+sum(metadata_aligned$sample_id == sample_order)
+
+# Guardar
+write.csv(all_factors,file.path(results_dir, "ST002993_sample_metadata.csv"), row.names = FALSE)
+
+```
+## Combinar datos y metadatos
+
+Disponemos de dos tipos de metadatos
+- El tipo de obesidad, metadato de las muestras
+- El tipo de plataforma, metadato de los metabolitos (se omite el hecho de que algunos podrian ser el mismo)
+
+Aunque es posible guardarlos como una matyriz y dos vectores de factores, es más elegante y práctico agruparlos en un contenedor de Bioconductor
+
+```{r}
+library(SummarizedExperiment)
+
+# Crear rowData con información de plataforma
+row_data <- DataFrame(platform = platforms, row.names = feature_ids)
+
+# Crear colData con metadatos alineados
+col_data <- metadata_aligned %>%
+  column_to_rownames("sample_id") %>%
+  DataFrame()
+
+# Comprobar alineación
+stopifnot(all(colnames(data_matrix) == rownames(col_data)))
+stopifnot(all(rownames(data_matrix) == rownames(row_data)))
+
+# Crear objeto SummarizedExperiment con rowData
+se <- SummarizedExperiment(
+  assays = list(counts = as.matrix(data_matrix)),
+  colData = col_data,
+  rowData = row_data
+)
+
+# Ver estructura
+se
+
+```
+
+### Acceso a los "slots"
+
+Una vez creado el objeto `SummarizedExperiment` podemos extraer la matriz de expresión y los metadatos facilmente.
+
+```{r}
+
+matriz <- assay(se)  # también puedes usar assay(se, "counts") si hay varios assays
+
+# 🔹 2. Extraer los metadatos (información de las muestras)
+infoMuestras <- colData(se)
+df_infoMuestras <- as.data.frame(infoMuestras)  # convertir a data.frame clásico
+
+infoVars <- rowData(se)
+df_infoVars <- as.data.frame(infoVars)  # convertir a data.frame clásico
+
+# 🔹 3. Ver nombres de muestras y metabolitos
+muestras <- colnames(se)
+metabolitos <- rownames(se)
+
+# Mostrar ejemplos
+head(matriz[, 1:5])
+
+```
+
+
+# Preprocesamiento
+
+Empezamos extrayendo la matriz de datos del contenedor.
+
+
+```{r}
+data_matrix <- assay(se, "counts")
+```
+
+
+## Filtrado
+
+Si hay NAs eliminaremos las muestras que superen un porcentaje dado.
+
+
+```{r preprocess1}
+if (anyNA(data_matrix)) {
+
+  message("Se han detectado valores NA. Aplicando filtrado e imputación...")
+
+  # Filtrado: eliminar features con más del 20% de NA
+  na_prop <- rowMeans(is.na(data_matrix))
+  data_matrix_filt <- data_matrix[na_prop <= 0.2, ]
+
+  # Imputación: reemplazar NA con el mínimo valor positivo de cada muestra
+  data_matrix_imp <- apply(data_matrix_filt, 2, function(x) {
+    x[is.na(x)] <- min(x[x > 0], na.rm = TRUE)
+    x
+  })
+
+} else {
+  message("No se han detectado valores NA. Continuando sin filtrado ni imputación.")
+  data_matrix_imp <- data_matrix
+}
+```
+
+## Normalización
+
+```{r preprocess2}
+# Normalizar por suma total (TIC-like)
+# data_matrix_norm <- sweep(data_matrix_imp, 2,
+#                           colSums(data_matrix_imp), 
+#                           FUN = "/")
+
+# Transformación logarítmica
+log_data <- log2(data_matrix_imp + 1)
+
+# Escalado z-score por muestra (centra y escala cada perfil)
+data_matrix_norm <- t(scale(t(log_data)))
+```
+
+
+Los datos normalizados se añaden como un nuevo slot al contenedor
+
+```{r}
+# Añadir como nuevo assay al objeto SummarizedExperiment
+assay(se, "data_matrix_norm") <- data_matrix_norm
+```
+
+
+```{r preprocess3}
+# Guardar tabla final
+write.csv(data_matrix_norm,file.path(results_dir,"results_filtered_normalized.csv"))
+```
+
+
+# Exploración de los  datos
+
+```{r}
+boxplot(
+  t(data_matrix_norm),
+  horizontal = TRUE,
+  main = "Distribución de intensidades normalizadas por metabolito",
+  xlab = "Intensidad (log2, escalada)",
+  col = "lightblue",
+  border = "grey40",
+  outline = FALSE,
+  las = 1,
+  cex.axis = 0.6,
+  cex.main = 0.9,
+  cex.lab = 0.6
+)
+
+```
+
+## Análisis de correlacion
+
+```{r explore1}
+library(corrplot)
+
+# Calcular matriz de correlaciones entre muestras
+cor_muestra <- cor(assay(se, "data_matrix_norm"))
+dim(cor_muestra)
+
+# Visualizar con corrplot
+corrplot(cor_muestra,
+         method = "color",
+         type = "upper",
+         order = "hclust",
+         tl.cex = 0.6,
+         col = colorRampPalette(c("blue", "white", "red"))(200),
+         title = "Correlación entre muestras",
+         mar = c(0, 0, 1, 0))
+```
+
+
+##  Analisis factoriales
+
+Empezamos con un PCA
+
+```{r explore2}
+library(FactoMineR)
+library(factoextra)
+
+# Transponer datos: individuos = muestras, variables = metabolitos
+pca_res <- PCA(t(data_matrix_norm), graph = FALSE)
+
+# Scree plot: porcentaje de varianza explicada por cada componente
+fviz_eig(pca_res, addlabels = TRUE, barfill = "skyblue", barcolor = "black") +
+  ggtitle("Scree plot - varianza explicada")
+
+# Gráfico PCA con muestras
+fviz_pca_ind(pca_res,
+             geom.ind = "point",
+             pointshape = 21,
+             fill.ind = "blue",
+             col.ind = "black",
+             repel = TRUE) +
+  ggtitle("PCA de muestras (FactoMineR)")
+
+```
+
+## MFA
+
+```{r}
+## Análisis factorial múltiple (MFA)
+
+library(FactoMineR)
+library(factoextra)
+
+# 1. Matriz de expresión
+X <- t(assay(se, "data_matrix_norm"))
+
+# 2. Preparar data.frame y añadir variable cualitativa
+X_df <- as.data.frame(X)
+X_df$obesity_type <- colData(se)$obesity_type
+
+# 3. Preparar info de grupos
+platforms <- rowData(se)$platform
+vars_by_platform <- split(rownames(se), platforms)
+X_df <- X_df[, c(unlist(vars_by_platform), "obesity_type")]
+
+group_sizes <- c(sapply(vars_by_platform, length), 1)
+group_types <- c(rep("c", length(vars_by_platform)), "n")  # última es cualitativa
+group_names <- c(names(vars_by_platform), "obesity")
+
+# 4. Ejecutar MFA
+res_mfa <- MFA(
+  base = X_df,
+  group = group_sizes,
+  type = group_types,
+  name.group = group_names,
+  num.group.sup = length(group_sizes),  # última posición es suplementaria
+  graph = FALSE
+)
+```
+
+
+```{r}
+fviz_screeplot(res_mfa, addlabels = TRUE, ylim = c(0, 50))
+```
+
+
+```{r}
+# 5. Visualizar individuos (muestras)
+fviz_mfa_ind(
+  res_mfa,
+  habillage = "obesity_type",
+  addEllipses = TRUE,
+  palette = c("red", "blue"),  # Colores personalizados
+  label = "none",              # No mostrar etiquetas de muestras
+  repel = FALSE,
+  title = "MFA - Muestras coloreadas por tipo de obesidad"
+)
+
+```
+
+
+
+```{r}
+# Extraer información de variables y grupos
+mfa_vars <- get_mfa_var(res_mfa)
+
+# Visualizar contribución de grupos a los ejes (automáticamente)
+fviz_mfa_var(
+  res_mfa,
+  "group",
+  palette = "Dark2",
+  title = "Contribución de los grupos a los componentes principales"
+)
+```
+
+### Matriz de factores
+
+El análisis factorial (múltiple) genera una nueva matriz con las mismas filas y los factores o variables latentes como columnas.
+
+Esta nueva matriz puede utilizarse de forma implícita o explícita para análisis posteriores como la búsqueda de metabotipos.
+
+```{r}
+factor_coords <- res_mfa$ind$coord
+
+# Ver dimensiones
+dim(factor_coords)
+
+# Visualizar primeras filas
+head(factor_coords)
+```
+
+## Clustering y obesidad
+
+### 🔍 Clustering y relación con la obesidad
+
+```{r hcpc}
+# 11. Clustering jerárquico sobre los factores
+res_hcpc <- HCPC(res_mfa, graph = FALSE)
+
+# 12. Visualización de clústeres
+fviz_cluster(
+  res_hcpc,
+  geom = "point",
+  palette = "jco",
+  repel = TRUE,
+  show.clust.cent = TRUE,
+  main = "Clustering de muestras basado en MFA"
+)
+
+# 13. Comparar clúster con tipo de obesidad
+cluster_assignments <- res_hcpc$data.clust$clust
+obesity_type <- colData(se)$obesity_type
+
+table(Cluster = cluster_assignments, Obesity = obesity_type)
+```
+
+# Almacenaje de datos y resultados
+
+```{r save}
+save(se, res_mfa, factor_coords,  res_hcpc, file =file.path(results_dir, "ST002993_processed_objects.RData"))
+
+# Guardar tabla final
+write.csv(factor_coords,file.path(results_dir,"factor_matrix.csv"))
+```

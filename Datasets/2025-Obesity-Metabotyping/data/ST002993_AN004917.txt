@@ -1,0 +1,276 @@
+#METABOLOMICS WORKBENCH davidch_20231107_065353 DATATRACK_ID:4445 STUDY_ID:ST002993 ANALYSIS_ID:AN004917 PROJECT_ID:PR001863
+VERSION             	1
+CREATED_ON             	November 28, 2023, 5:50 pm
+#PROJECT
+PR:PROJECT_TITLE                 	Identifying subgroups of childhood obesity by using multiplatform metabotyping
+PR:PROJECT_SUMMARY               	Obesity results from an interplay between genetic predisposition and
+PR:PROJECT_SUMMARY               	environmental factors such as diet, physical activity, culture, and
+PR:PROJECT_SUMMARY               	socioeconomic status. Personalized treatments for obesity would be optimal, thus
+PR:PROJECT_SUMMARY               	necessitating the identification of individual characteristics to improve the
+PR:PROJECT_SUMMARY               	effectiveness of therapies. For example, genetic impairment of the
+PR:PROJECT_SUMMARY               	leptin-melanocortin pathway can result in rare cases of severe early-onset
+PR:PROJECT_SUMMARY               	obesity. Metabolomics has the potential to distinguish between a healthy and
+PR:PROJECT_SUMMARY               	obese status; however, differentiating subsets of individuals within the obesity
+PR:PROJECT_SUMMARY               	spectrum remains challenging. Factor analysis can integrate patient features
+PR:PROJECT_SUMMARY               	from diverse sources, allowing an accurate subclassification of individuals.
+PR:PROJECT_SUMMARY               	This study presents a workflow to identify metabotypes, particularly when
+PR:PROJECT_SUMMARY               	routine clinical studies fail in patient categorization. 110 children with
+PR:PROJECT_SUMMARY               	obesity (BMI &gt; +2 SDS) genotyped for nine genes involved in the
+PR:PROJECT_SUMMARY               	leptin-melanocortin pathway (CPE, MC3R, MC4R, MRAP2, NCOA1, PCSK1, POMC, SH2B1,
+PR:PROJECT_SUMMARY               	and SIM1) and two glutamate receptor genes (GRM7 and GRIK1) were studied; 55
+PR:PROJECT_SUMMARY               	harboring heterozygous rare sequence variants and 55 with no variants.
+PR:PROJECT_SUMMARY               	Anthropometric and routine clinical laboratory data were collected, and serum
+PR:PROJECT_SUMMARY               	samples processed for untargeted metabolomic analysis using GC-q-MS and
+PR:PROJECT_SUMMARY               	CE-TOF-MS and reversed-phase U(H)PLC-QTOF-MS/MS in positive and negative
+PR:PROJECT_SUMMARY               	ionization modes. Following signal processing and multialignment, multivariate
+PR:PROJECT_SUMMARY               	and univariate statistical analyses were applied to evaluate the genetic trait
+PR:PROJECT_SUMMARY               	association with metabolomics data and clinical and routine laboratory features.
+PR:PROJECT_SUMMARY               	Neither the presence of a heterozygous rare sequence variant nor
+PR:PROJECT_SUMMARY               	clinical/routine laboratory features determined subgroups in the metabolomics
+PR:PROJECT_SUMMARY               	data. To identify metabolomic subtypes, we applied Factor Analysis, by
+PR:PROJECT_SUMMARY               	constructing a composite matrix from the five analytical platforms. Six factors
+PR:PROJECT_SUMMARY               	were discovered and three different metabotypes. Subtle but neat differences in
+PR:PROJECT_SUMMARY               	the circulating lipids, as well as in insulin sensitivity could be established,
+PR:PROJECT_SUMMARY               	which opens the possibility to personalize the treatment according to the
+PR:PROJECT_SUMMARY               	patients categorization into such obesity subtypes. Metabotyping in clinical
+PR:PROJECT_SUMMARY               	contexts poses challenges due to the influence of various uncontrolled variables
+PR:PROJECT_SUMMARY               	on metabolic phenotypes. However, this strategy reveals the potential to
+PR:PROJECT_SUMMARY               	identify subsets of patients with similar clinical diagnoses but different
+PR:PROJECT_SUMMARY               	metabolic conditions. This approach underscores the broader applicability of
+PR:PROJECT_SUMMARY               	Factor Analysis in metabotyping across diverse clinical scenarios.
+PR:INSTITUTE                     	CEU San Pablo University
+PR:LABORATORY                    	CEMBIO
+PR:LAST_NAME                     	Chamoso-Sánchez
+PR:FIRST_NAME                    	David
+PR:ADDRESS                       	Urb. Montepríncipe. 28925 Alcorcón, Madrid (España)
+PR:EMAIL                         	david.chamososanchez@usp.ceu.es
+PR:PHONE                         	(+34)913724769
+#STUDY
+ST:STUDY_TITLE                   	Identifying subgroups of childhood obesity by using multiplatform metabotyping
+ST:STUDY_SUMMARY                 	Obesity results from an interplay between genetic predisposition and
+ST:STUDY_SUMMARY                 	environmental factors such as diet, physical activity, culture, and
+ST:STUDY_SUMMARY                 	socioeconomic status. Personalized treatments for obesity would be optimal, thus
+ST:STUDY_SUMMARY                 	necessitating the identification of individual characteristics to improve the
+ST:STUDY_SUMMARY                 	effectiveness of therapies. For example, genetic impairment of the
+ST:STUDY_SUMMARY                 	leptin-melanocortin pathway can result in rare cases of severe early-onset
+ST:STUDY_SUMMARY                 	obesity. Metabolomics has the potential to distinguish between a healthy and
+ST:STUDY_SUMMARY                 	obese status; however, differentiating subsets of individuals within the obesity
+ST:STUDY_SUMMARY                 	spectrum remains challenging. Factor analysis can integrate patient features
+ST:STUDY_SUMMARY                 	from diverse sources, allowing an accurate subclassification of individuals.
+ST:STUDY_SUMMARY                 	This study presents a workflow to identify metabotypes, particularly when
+ST:STUDY_SUMMARY                 	routine clinical studies fail in patient categorization. 110 children with
+ST:STUDY_SUMMARY                 	obesity (BMI &gt; +2 SDS) genotyped for nine genes involved in the
+ST:STUDY_SUMMARY                 	leptin-melanocortin pathway (CPE, MC3R, MC4R, MRAP2, NCOA1, PCSK1, POMC, SH2B1,
+ST:STUDY_SUMMARY                 	and SIM1) and two glutamate receptor genes (GRM7 and GRIK1) were studied; 55
+ST:STUDY_SUMMARY                 	harboring heterozygous rare sequence variants and 55 with no variants.
+ST:STUDY_SUMMARY                 	Anthropometric and routine clinical laboratory data were collected, and serum
+ST:STUDY_SUMMARY                 	samples processed for untargeted metabolomic analysis using GC-q-MS and
+ST:STUDY_SUMMARY                 	CE-TOF-MS and reversed-phase U(H)PLC-QTOF-MS/MS in positive and negative
+ST:STUDY_SUMMARY                 	ionization modes. Following signal processing and multialignment, multivariate
+ST:STUDY_SUMMARY                 	and univariate statistical analyses were applied to evaluate the genetic trait
+ST:STUDY_SUMMARY                 	association with metabolomics data and clinical and routine laboratory features.
+ST:STUDY_SUMMARY                 	Neither the presence of a heterozygous rare sequence variant nor
+ST:STUDY_SUMMARY                 	clinical/routine laboratory features determined subgroups in the metabolomics
+ST:STUDY_SUMMARY                 	data. To identify metabolomic subtypes, we applied Factor Analysis, by
+ST:STUDY_SUMMARY                 	constructing a composite matrix from the five analytical platforms. Six factors
+ST:STUDY_SUMMARY                 	were discovered and three different metabotypes. Subtle but neat differences in
+ST:STUDY_SUMMARY                 	the circulating lipids, as well as in insulin sensitivity could be established,
+ST:STUDY_SUMMARY                 	which opens the possibility to personalize the treatment according to the
+ST:STUDY_SUMMARY                 	patients categorization into such obesity subtypes. Metabotyping in clinical
+ST:STUDY_SUMMARY                 	contexts poses challenges due to the influence of various uncontrolled variables
+ST:STUDY_SUMMARY                 	on metabolic phenotypes. However, this strategy reveals the potential to
+ST:STUDY_SUMMARY                 	identify subsets of patients with similar clinical diagnoses but different
+ST:STUDY_SUMMARY                 	metabolic conditions. This approach underscores the broader applicability of
+ST:STUDY_SUMMARY                 	Factor Analysis in metabotyping across diverse clinical scenarios.
+ST:INSTITUTE                     	CEU San Pablo University
+ST:LABORATORY                    	CEMBIO
+ST:LAST_NAME                     	Chamoso-Sánchez
+ST:FIRST_NAME                    	David
+ST:ADDRESS                       	Urb. Montepríncipe. 28925 Alcorcón, Madrid (España)
+ST:EMAIL                         	david.chamososanchez@usp.ceu.es
+ST:NUM_GROUPS                    	2
+ST:TOTAL_SUBJECTS                	110
+ST:NUM_MALES                     	53
+ST:NUM_FEMALES                   	57
+ST:PHONE                         	(+34)913724769
+#SUBJECT
+SU:SUBJECT_TYPE                  	Human
+SU:SUBJECT_SPECIES               	Homo sapiens
+SU:TAXONOMY_ID                   	9606
+#SUBJECT_SAMPLE_FACTORS:         	SUBJECT(optional)[tab]SAMPLE[tab]FACTORS(NAME:VALUE pairs separated by |)[tab]Raw file names and additional sample data
+SUBJECT_SAMPLE_FACTORS           	-	C842	Factor:Idiopathic obesity	RAW_FILE_NAME=C842_LCPOS.mzXML; RAW_FILE_NAME=C842_LCNEG.mzXML; RAW_FILE_NAME=C842_GC.mzXML; RAW_FILE_NAME=C842_CEPOS.mzXML; RAW_FILE_NAME=C842_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C1306	Factor:Idiopathic obesity	RAW_FILE_NAME=C1306_LCPOS.mzXML; RAW_FILE_NAME=C1306_LCNEG.mzXML; RAW_FILE_NAME=C1306_GC.mzXML; RAW_FILE_NAME=C1306_CEPOS.mzXML; RAW_FILE_NAME=C1306_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C1317	Factor:Idiopathic obesity	RAW_FILE_NAME=C1317_LCPOS.mzXML; RAW_FILE_NAME=C1317_LCNEG.mzXML; RAW_FILE_NAME=C1317_GC.mzXML; RAW_FILE_NAME=C1317_CEPOS.mzXML; RAW_FILE_NAME=C1317_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C1331	Factor:Idiopathic obesity	RAW_FILE_NAME=C1331_LCPOS.mzXML; RAW_FILE_NAME=C1331_LCNEG.mzXML; RAW_FILE_NAME=C1331_GC.mzXML; RAW_FILE_NAME=C1331_CEPOS.mzXML; RAW_FILE_NAME=C1331_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C1336	Factor:Idiopathic obesity	RAW_FILE_NAME=C1336_LCPOS.mzXML; RAW_FILE_NAME=C1336_LCNEG.mzXML; RAW_FILE_NAME=C1336_GC.mzXML; RAW_FILE_NAME=C1336_CEPOS.mzXML; RAW_FILE_NAME=C1336_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C1366	Factor:Idiopathic obesity	RAW_FILE_NAME=C1366_LCPOS.mzXML; RAW_FILE_NAME=C1366_LCNEG.mzXML; RAW_FILE_NAME=C1366_GC.mzXML; RAW_FILE_NAME=C1366_CEPOS.mzXML; RAW_FILE_NAME=C1366_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C1453	Factor:Idiopathic obesity	RAW_FILE_NAME=C1453_LCPOS.mzXML; RAW_FILE_NAME=C1453_LCNEG.mzXML; RAW_FILE_NAME=C1453_GC.mzXML; RAW_FILE_NAME=C1453_CEPOS.mzXML; RAW_FILE_NAME=C1453_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C1520	Factor:Idiopathic obesity	RAW_FILE_NAME=C1520_LCPOS.mzXML; RAW_FILE_NAME=C1520_LCNEG.mzXML; RAW_FILE_NAME=-; RAW_FILE_NAME=C1520_CEPOS.mzXML; RAW_FILE_NAME=C1520_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C1538	Factor:Idiopathic obesity	RAW_FILE_NAME=C1538_LCPOS.mzXML; RAW_FILE_NAME=C1538_LCNEG.mzXML; RAW_FILE_NAME=C1538_GC.mzXML; RAW_FILE_NAME=C1538_CEPOS.mzXML; RAW_FILE_NAME=C1538_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C1539	Factor:Idiopathic obesity	RAW_FILE_NAME=C1539_LCPOS.mzXML; RAW_FILE_NAME=C1539_LCNEG.mzXML; RAW_FILE_NAME=C1539_GC.mzXML; RAW_FILE_NAME=C1539_CEPOS.mzXML; RAW_FILE_NAME=C1539_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C1548	Factor:Idiopathic obesity	RAW_FILE_NAME=C1548_LCPOS.mzXML; RAW_FILE_NAME=C1548_LCNEG.mzXML; RAW_FILE_NAME=C1548_GC.mzXML; RAW_FILE_NAME=C1548_CEPOS.mzXML; RAW_FILE_NAME=C1548_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C1030	Factor:Idiopathic obesity	RAW_FILE_NAME=C1030_LCPOS.mzXML; RAW_FILE_NAME=C1030_LCNEG.mzXML; RAW_FILE_NAME=C1030_GC.mzXML; RAW_FILE_NAME=C1030_CEPOS.mzXML; RAW_FILE_NAME=C1030_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C1556	Factor:Idiopathic obesity	RAW_FILE_NAME=C1556_LCPOS.mzXML; RAW_FILE_NAME=C1556_LCNEG.mzXML; RAW_FILE_NAME=C1556_GC.mzXML; RAW_FILE_NAME=C1556_CEPOS.mzXML; RAW_FILE_NAME=C1556_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C1564	Factor:Idiopathic obesity	RAW_FILE_NAME=C1564_LCPOS.mzXML; RAW_FILE_NAME=C1564_LCNEG.mzXML; RAW_FILE_NAME=C1564_GC.mzXML; RAW_FILE_NAME=C1564_CEPOS.mzXML; RAW_FILE_NAME=C1564_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C1768	Factor:Idiopathic obesity	RAW_FILE_NAME=C1768_LCPOS.mzXML; RAW_FILE_NAME=C1768_LCNEG.mzXML; RAW_FILE_NAME=C1768_GC.mzXML; RAW_FILE_NAME=C1768_CEPOS.mzXML; RAW_FILE_NAME=C1768_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C1782	Factor:Idiopathic obesity	RAW_FILE_NAME=C1782_LCPOS.mzXML; RAW_FILE_NAME=C1782_LCNEG.mzXML; RAW_FILE_NAME=C1782_GC.mzXML; RAW_FILE_NAME=C1782_CEPOS.mzXML; RAW_FILE_NAME=C1782_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C1937	Factor:Idiopathic obesity	RAW_FILE_NAME=C1937_LCPOS.mzXML; RAW_FILE_NAME=C1937_LCNEG.mzXML; RAW_FILE_NAME=C1937_GC.mzXML; RAW_FILE_NAME=C1937_CEPOS.mzXML; RAW_FILE_NAME=C1937_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C2002	Factor:Idiopathic obesity	RAW_FILE_NAME=C2002_LCPOS.mzXML; RAW_FILE_NAME=C2002_LCNEG.mzXML; RAW_FILE_NAME=C2002_GC.mzXML; RAW_FILE_NAME=C2002_CEPOS.mzXML; RAW_FILE_NAME=C2002_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C2158	Factor:Idiopathic obesity	RAW_FILE_NAME=C2158_LCPOS.mzXML; RAW_FILE_NAME=C2158_LCNEG.mzXML; RAW_FILE_NAME=C2158_GC.mzXML; RAW_FILE_NAME=C2158_CEPOS.mzXML; RAW_FILE_NAME=C2158_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C2188	Factor:Idiopathic obesity	RAW_FILE_NAME=C2188_LCPOS.mzXML; RAW_FILE_NAME=C2188_LCNEG.mzXML; RAW_FILE_NAME=C2188_GC.mzXML; RAW_FILE_NAME=C2188_CEPOS.mzXML; RAW_FILE_NAME=C2188_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C2218	Factor:Idiopathic obesity	RAW_FILE_NAME=C2218_LCPOS.mzXML; RAW_FILE_NAME=C2218_LCNEG.mzXML; RAW_FILE_NAME=C2218_GC.mzXML; RAW_FILE_NAME=C2218_CEPOS.mzXML; RAW_FILE_NAME=C2218_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C2226	Factor:Idiopathic obesity	RAW_FILE_NAME=C2226_LCPOS.mzXML; RAW_FILE_NAME=C2226_LCNEG.mzXML; RAW_FILE_NAME=C2226_GC.mzXML; RAW_FILE_NAME=C2226_CEPOS.mzXML; RAW_FILE_NAME=C2226_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C1131	Factor:Idiopathic obesity	RAW_FILE_NAME=C1131_LCPOS.mzXML; RAW_FILE_NAME=C1131_LCNEG.mzXML; RAW_FILE_NAME=C1131_GC.mzXML; RAW_FILE_NAME=C1131_CEPOS.mzXML; RAW_FILE_NAME=C1131_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C2249	Factor:Idiopathic obesity	RAW_FILE_NAME=C2249_LCPOS.mzXML; RAW_FILE_NAME=C2249_LCNEG.mzXML; RAW_FILE_NAME=C2249_GC.mzXML; RAW_FILE_NAME=C2249_CEPOS.mzXML; RAW_FILE_NAME=C2249_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C2259	Factor:Idiopathic obesity	RAW_FILE_NAME=C2259_LCPOS.mzXML; RAW_FILE_NAME=C2259_LCNEG.mzXML; RAW_FILE_NAME=C2259_GC.mzXML; RAW_FILE_NAME=C2259_CEPOS.mzXML; RAW_FILE_NAME=C2259_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C2275	Factor:Idiopathic obesity	RAW_FILE_NAME=C2275_LCPOS.mzXML; RAW_FILE_NAME=C2275_LCNEG.mzXML; RAW_FILE_NAME=C2275_GC.mzXML; RAW_FILE_NAME=C2275_CEPOS.mzXML; RAW_FILE_NAME=C2275_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C2284	Factor:Idiopathic obesity	RAW_FILE_NAME=C2284_LCPOS.mzXML; RAW_FILE_NAME=C2284_LCNEG.mzXML; RAW_FILE_NAME=C2284_GC.mzXML; RAW_FILE_NAME=C2284_CEPOS.mzXML; RAW_FILE_NAME=C2284_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C2289	Factor:Idiopathic obesity	RAW_FILE_NAME=C2289_LCPOS.mzXML; RAW_FILE_NAME=C2289_LCNEG.mzXML; RAW_FILE_NAME=C2289_GC.mzXML; RAW_FILE_NAME=C2289_CEPOS.mzXML; RAW_FILE_NAME=C2289_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C2296	Factor:Idiopathic obesity	RAW_FILE_NAME=C2296_LCPOS.mzXML; RAW_FILE_NAME=C2296_LCNEG.mzXML; RAW_FILE_NAME=C2296_GC.mzXML; RAW_FILE_NAME=C2296_CEPOS.mzXML; RAW_FILE_NAME=C2296_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C2310	Factor:Idiopathic obesity	RAW_FILE_NAME=C2310_LCPOS.mzXML; RAW_FILE_NAME=C2310_LCNEG.mzXML; RAW_FILE_NAME=C2310_GC.mzXML; RAW_FILE_NAME=C2310_CEPOS.mzXML; RAW_FILE_NAME=C2310_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C2312	Factor:Idiopathic obesity	RAW_FILE_NAME=C2312_LCPOS.mzXML; RAW_FILE_NAME=C2312_LCNEG.mzXML; RAW_FILE_NAME=C2312_GC.mzXML; RAW_FILE_NAME=C2312_CEPOS.mzXML; RAW_FILE_NAME=C2312_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C2318	Factor:Idiopathic obesity	RAW_FILE_NAME=C2318_LCPOS.mzXML; RAW_FILE_NAME=C2318_LCNEG.mzXML; RAW_FILE_NAME=C2318_GC.mzXML; RAW_FILE_NAME=C2318_CEPOS.mzXML; RAW_FILE_NAME=C2318_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C2319	Factor:Idiopathic obesity	RAW_FILE_NAME=C2319_LCPOS.mzXML; RAW_FILE_NAME=C2319_LCNEG.mzXML; RAW_FILE_NAME=C2319_GC.mzXML; RAW_FILE_NAME=C2319_CEPOS.mzXML; RAW_FILE_NAME=C2319_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C1133	Factor:Idiopathic obesity	RAW_FILE_NAME=C1133_LCPOS.mzXML; RAW_FILE_NAME=C1133_LCNEG.mzXML; RAW_FILE_NAME=C1133_GC.mzXML; RAW_FILE_NAME=C1133_CEPOS.mzXML; RAW_FILE_NAME=C1133_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C572	Factor:Idiopathic obesity	RAW_FILE_NAME=C572_LCPOS.mzXML; RAW_FILE_NAME=C572_LCNEG.mzXML; RAW_FILE_NAME=C572_GC.mzXML; RAW_FILE_NAME=C572_CEPOS.mzXML; RAW_FILE_NAME=C572_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C578	Factor:Idiopathic obesity	RAW_FILE_NAME=C578_LCPOS.mzXML; RAW_FILE_NAME=C578_LCNEG.mzXML; RAW_FILE_NAME=C578_GC.mzXML; RAW_FILE_NAME=C578_CEPOS.mzXML; RAW_FILE_NAME=C578_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C615	Factor:Idiopathic obesity	RAW_FILE_NAME=C615_LCPOS.mzXML; RAW_FILE_NAME=C615_LCNEG.mzXML; RAW_FILE_NAME=C615_GC.mzXML; RAW_FILE_NAME=C615_CEPOS.mzXML; RAW_FILE_NAME=C615_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C624	Factor:Idiopathic obesity	RAW_FILE_NAME=C624_LCPOS.mzXML; RAW_FILE_NAME=C624_LCNEG.mzXML; RAW_FILE_NAME=C624_GC.mzXML; RAW_FILE_NAME=C624_CEPOS.mzXML; RAW_FILE_NAME=C624_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C628	Factor:Idiopathic obesity	RAW_FILE_NAME=C628_LCPOS.mzXML; RAW_FILE_NAME=C628_LCNEG.mzXML; RAW_FILE_NAME=C628_GC.mzXML; RAW_FILE_NAME=C628_CEPOS.mzXML; RAW_FILE_NAME=C628_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C636	Factor:Idiopathic obesity	RAW_FILE_NAME=C636_LCPOS.mzXML; RAW_FILE_NAME=C636_LCNEG.mzXML; RAW_FILE_NAME=C636_GC.mzXML; RAW_FILE_NAME=C636_CEPOS.mzXML; RAW_FILE_NAME=C636_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C668	Factor:Idiopathic obesity	RAW_FILE_NAME=C668_LCPOS.mzXML; RAW_FILE_NAME=C668_LCNEG.mzXML; RAW_FILE_NAME=C668_GC.mzXML; RAW_FILE_NAME=C668_CEPOS.mzXML; RAW_FILE_NAME=C668_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C726	Factor:Idiopathic obesity	RAW_FILE_NAME=C726_LCPOS.mzXML; RAW_FILE_NAME=C726_LCNEG.mzXML; RAW_FILE_NAME=C726_GC.mzXML; RAW_FILE_NAME=C726_CEPOS.mzXML; RAW_FILE_NAME=C726_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C756	Factor:Idiopathic obesity	RAW_FILE_NAME=C756_LCPOS.mzXML; RAW_FILE_NAME=C756_LCNEG.mzXML; RAW_FILE_NAME=C756_GC.mzXML; RAW_FILE_NAME=C756_CEPOS.mzXML; RAW_FILE_NAME=C756_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C772	Factor:Idiopathic obesity	RAW_FILE_NAME=C772_LCPOS.mzXML; RAW_FILE_NAME=C772_LCNEG.mzXML; RAW_FILE_NAME=C772_GC.mzXML; RAW_FILE_NAME=C772_CEPOS.mzXML; RAW_FILE_NAME=C772_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C1171	Factor:Idiopathic obesity	RAW_FILE_NAME=C1171_LCPOS.mzXML; RAW_FILE_NAME=C1171_LCNEG.mzXML; RAW_FILE_NAME=C1171_GC.mzXML; RAW_FILE_NAME=C1171_CEPOS.mzXML; RAW_FILE_NAME=C1171_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C791	Factor:Idiopathic obesity	RAW_FILE_NAME=C791_LCPOS.mzXML; RAW_FILE_NAME=C791_LCNEG.mzXML; RAW_FILE_NAME=C791_GC.mzXML; RAW_FILE_NAME=C791_CEPOS.mzXML; RAW_FILE_NAME=C791_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C820	Factor:Idiopathic obesity	RAW_FILE_NAME=C820_LCPOS.mzXML; RAW_FILE_NAME=C820_LCNEG.mzXML; RAW_FILE_NAME=C820_GC.mzXML; RAW_FILE_NAME=C820_CEPOS.mzXML; RAW_FILE_NAME=C820_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C841	Factor:Idiopathic obesity	RAW_FILE_NAME=C841_LCPOS.mzXML; RAW_FILE_NAME=C841_LCNEG.mzXML; RAW_FILE_NAME=C841_GC.mzXML; RAW_FILE_NAME=C841_CEPOS.mzXML; RAW_FILE_NAME=C841_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C877	Factor:Idiopathic obesity	RAW_FILE_NAME=C877_LCPOS.mzXML; RAW_FILE_NAME=C877_LCNEG.mzXML; RAW_FILE_NAME=C877_GC.mzXML; RAW_FILE_NAME=C877_CEPOS.mzXML; RAW_FILE_NAME=C877_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C904	Factor:Idiopathic obesity	RAW_FILE_NAME=C904_LCPOS.mzXML; RAW_FILE_NAME=C904_LCNEG.mzXML; RAW_FILE_NAME=C904_GC.mzXML; RAW_FILE_NAME=C904_CEPOS.mzXML; RAW_FILE_NAME=C904_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C947	Factor:Idiopathic obesity	RAW_FILE_NAME=C947_LCPOS.mzXML; RAW_FILE_NAME=C947_LCNEG.mzXML; RAW_FILE_NAME=C947_GC.mzXML; RAW_FILE_NAME=C947_CEPOS.mzXML; RAW_FILE_NAME=C947_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C1204	Factor:Idiopathic obesity	RAW_FILE_NAME=C1204_LCPOS.mzXML; RAW_FILE_NAME=C1204_LCNEG.mzXML; RAW_FILE_NAME=C1204_GC.mzXML; RAW_FILE_NAME=C1204_CEPOS.mzXML; RAW_FILE_NAME=C1204_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C1222	Factor:Idiopathic obesity	RAW_FILE_NAME=C1222_LCPOS.mzXML; RAW_FILE_NAME=C1222_LCNEG.mzXML; RAW_FILE_NAME=C1222_GC.mzXML; RAW_FILE_NAME=C1222_CEPOS.mzXML; RAW_FILE_NAME=C1222_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C1229	Factor:Idiopathic obesity	RAW_FILE_NAME=C1229_LCPOS.mzXML; RAW_FILE_NAME=C1229_LCNEG.mzXML; RAW_FILE_NAME=C1229_GC.mzXML; RAW_FILE_NAME=C1229_CEPOS.mzXML; RAW_FILE_NAME=C1229_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	C1238	Factor:Idiopathic obesity	RAW_FILE_NAME=C1238_LCPOS.mzXML; RAW_FILE_NAME=C1238_LCNEG.mzXML; RAW_FILE_NAME=C1238_GC.mzXML; RAW_FILE_NAME=C1238_CEPOS.mzXML; RAW_FILE_NAME=C1238_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M796	Factor:Monogenic obesity	RAW_FILE_NAME=M796_LCPOS.mzXML; RAW_FILE_NAME=M796_LCNEG.mzXML; RAW_FILE_NAME=M796_GC.mzXML; RAW_FILE_NAME=M796_CEPOS.mzXML; RAW_FILE_NAME=M796_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M1202	Factor:Monogenic obesity	RAW_FILE_NAME=M1202_LCPOS.mzXML; RAW_FILE_NAME=M1202_LCNEG.mzXML; RAW_FILE_NAME=M1202_GC.mzXML; RAW_FILE_NAME=M1202_CEPOS.mzXML; RAW_FILE_NAME=M1202_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M1223	Factor:Monogenic obesity	RAW_FILE_NAME=M1223_LCPOS.mzXML; RAW_FILE_NAME=M1223_LCNEG.mzXML; RAW_FILE_NAME=M1223_GC.mzXML; RAW_FILE_NAME=M1223_CEPOS.mzXML; RAW_FILE_NAME=M1223_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M1239	Factor:Monogenic obesity	RAW_FILE_NAME=M1239_LCPOS.mzXML; RAW_FILE_NAME=M1239_LCNEG.mzXML; RAW_FILE_NAME=M1239_GC.mzXML; RAW_FILE_NAME=M1239_CEPOS.mzXML; RAW_FILE_NAME=M1239_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M1272	Factor:Monogenic obesity	RAW_FILE_NAME=M1272_LCPOS.mzXML; RAW_FILE_NAME=M1272_LCNEG.mzXML; RAW_FILE_NAME=M1272_GC.mzXML; RAW_FILE_NAME=M1272_CEPOS.mzXML; RAW_FILE_NAME=M1272_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M1294	Factor:Monogenic obesity	RAW_FILE_NAME=M1294_LCPOS.mzXML; RAW_FILE_NAME=M1294_LCNEG.mzXML; RAW_FILE_NAME=M1294_GC.mzXML; RAW_FILE_NAME=M1294_CEPOS.mzXML; RAW_FILE_NAME=M1294_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M1309	Factor:Monogenic obesity	RAW_FILE_NAME=M1309_LCPOS.mzXML; RAW_FILE_NAME=M1309_LCNEG.mzXML; RAW_FILE_NAME=M1309_GC.mzXML; RAW_FILE_NAME=M1309_CEPOS.mzXML; RAW_FILE_NAME=M1309_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M1322	Factor:Monogenic obesity	RAW_FILE_NAME=M1322_LCPOS.mzXML; RAW_FILE_NAME=M1322_LCNEG.mzXML; RAW_FILE_NAME=M1322_GC.mzXML; RAW_FILE_NAME=M1322_CEPOS.mzXML; RAW_FILE_NAME=M1322_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M1344	Factor:Monogenic obesity	RAW_FILE_NAME=M1344_LCPOS.mzXML; RAW_FILE_NAME=M1344_LCNEG.mzXML; RAW_FILE_NAME=M1344_GC.mzXML; RAW_FILE_NAME=M1344_CEPOS.mzXML; RAW_FILE_NAME=M1344_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M1361	Factor:Monogenic obesity	RAW_FILE_NAME=M1361_LCPOS.mzXML; RAW_FILE_NAME=M1361_LCNEG.mzXML; RAW_FILE_NAME=M1361_GC.mzXML; RAW_FILE_NAME=M1361_CEPOS.mzXML; RAW_FILE_NAME=M1361_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M1380	Factor:Monogenic obesity	RAW_FILE_NAME=M1380_LCPOS.mzXML; RAW_FILE_NAME=M1380_LCNEG.mzXML; RAW_FILE_NAME=M1380_GC.mzXML; RAW_FILE_NAME=M1380_CEPOS.mzXML; RAW_FILE_NAME=M1380_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M1044	Factor:Monogenic obesity	RAW_FILE_NAME=M1044_LCPOS.mzXML; RAW_FILE_NAME=M1044_LCNEG.mzXML; RAW_FILE_NAME=M1044_GC.mzXML; RAW_FILE_NAME=M1044_CEPOS.mzXML; RAW_FILE_NAME=M1044_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M1518	Factor:Monogenic obesity	RAW_FILE_NAME=M1518_LCPOS.mzXML; RAW_FILE_NAME=M1518_LCNEG.mzXML; RAW_FILE_NAME=M1518_GC.mzXML; RAW_FILE_NAME=M1518_CEPOS.mzXML; RAW_FILE_NAME=M1518_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M1558	Factor:Monogenic obesity	RAW_FILE_NAME=M1558_LCPOS.mzXML; RAW_FILE_NAME=M1558_LCNEG.mzXML; RAW_FILE_NAME=M1558_GC.mzXML; RAW_FILE_NAME=M1558_CEPOS.mzXML; RAW_FILE_NAME=M1558_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M1605	Factor:Monogenic obesity	RAW_FILE_NAME=M1605_LCPOS.mzXML; RAW_FILE_NAME=M1605_LCNEG.mzXML; RAW_FILE_NAME=M1605_GC.mzXML; RAW_FILE_NAME=M1605_CEPOS.mzXML; RAW_FILE_NAME=M1605_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M1680	Factor:Monogenic obesity	RAW_FILE_NAME=M1680_LCPOS.mzXML; RAW_FILE_NAME=M1680_LCNEG.mzXML; RAW_FILE_NAME=M1680_GC.mzXML; RAW_FILE_NAME=M1680_CEPOS.mzXML; RAW_FILE_NAME=M1680_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M1682	Factor:Monogenic obesity	RAW_FILE_NAME=M1682_LCPOS.mzXML; RAW_FILE_NAME=M1682_LCNEG.mzXML; RAW_FILE_NAME=M1682_GC.mzXML; RAW_FILE_NAME=M1682_CEPOS.mzXML; RAW_FILE_NAME=M1682_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M1689	Factor:Monogenic obesity	RAW_FILE_NAME=M1689_LCPOS.mzXML; RAW_FILE_NAME=M1689_LCNEG.mzXML; RAW_FILE_NAME=M1689_GC.mzXML; RAW_FILE_NAME=M1689_CEPOS.mzXML; RAW_FILE_NAME=M1689_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M1787	Factor:Monogenic obesity	RAW_FILE_NAME=M1787_LCPOS.mzXML; RAW_FILE_NAME=M1787_LCNEG.mzXML; RAW_FILE_NAME=M1787_GC.mzXML; RAW_FILE_NAME=M1787_CEPOS.mzXML; RAW_FILE_NAME=M1787_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M1794	Factor:Monogenic obesity	RAW_FILE_NAME=M1794_LCPOS.mzXML; RAW_FILE_NAME=M1794_LCNEG.mzXML; RAW_FILE_NAME=M1794_GC.mzXML; RAW_FILE_NAME=M1794_CEPOS.mzXML; RAW_FILE_NAME=M1794_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M1843	Factor:Monogenic obesity	RAW_FILE_NAME=M1843_LCPOS.mzXML; RAW_FILE_NAME=M1843_LCNEG.mzXML; RAW_FILE_NAME=M1843_GC.mzXML; RAW_FILE_NAME=M1843_CEPOS.mzXML; RAW_FILE_NAME=M1843_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M1860	Factor:Monogenic obesity	RAW_FILE_NAME=M1860_LCPOS.mzXML; RAW_FILE_NAME=M1860_LCNEG.mzXML; RAW_FILE_NAME=M1860_GC.mzXML; RAW_FILE_NAME=M1860_CEPOS.mzXML; RAW_FILE_NAME=M1860_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M1078	Factor:Monogenic obesity	RAW_FILE_NAME=M1078_LCPOS.mzXML; RAW_FILE_NAME=M1078_LCNEG.mzXML; RAW_FILE_NAME=M1078_GC.mzXML; RAW_FILE_NAME=M1078_CEPOS.mzXML; RAW_FILE_NAME=M1078_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M1884	Factor:Monogenic obesity	RAW_FILE_NAME=M1884_LCPOS.mzXML; RAW_FILE_NAME=M1884_LCNEG.mzXML; RAW_FILE_NAME=M1884_GC.mzXML; RAW_FILE_NAME=M1884_CEPOS.mzXML; RAW_FILE_NAME=M1884_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M1986	Factor:Monogenic obesity	RAW_FILE_NAME=M1986_LCPOS.mzXML; RAW_FILE_NAME=M1986_LCNEG.mzXML; RAW_FILE_NAME=M1986_GC.mzXML; RAW_FILE_NAME=M1986_CEPOS.mzXML; RAW_FILE_NAME=M1986_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M199	Factor:Monogenic obesity	RAW_FILE_NAME=M199_LCPOS.mzXML; RAW_FILE_NAME=M199_LCNEG.mzXML; RAW_FILE_NAME=M199_GC.mzXML; RAW_FILE_NAME=M199_CEPOS.mzXML; RAW_FILE_NAME=M199_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M2050	Factor:Monogenic obesity	RAW_FILE_NAME=M2050_LCPOS.mzXML; RAW_FILE_NAME=M2050_LCNEG.mzXML; RAW_FILE_NAME=M2050_GC.mzXML; RAW_FILE_NAME=M2050_CEPOS.mzXML; RAW_FILE_NAME=M2050_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M2058	Factor:Monogenic obesity	RAW_FILE_NAME=M2058_LCPOS.mzXML; RAW_FILE_NAME=M2058_LCNEG.mzXML; RAW_FILE_NAME=M2058_GC.mzXML; RAW_FILE_NAME=M2058_CEPOS.mzXML; RAW_FILE_NAME=M2058_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M2105	Factor:Monogenic obesity	RAW_FILE_NAME=M2105_LCPOS.mzXML; RAW_FILE_NAME=M2105_LCNEG.mzXML; RAW_FILE_NAME=M2105_GC.mzXML; RAW_FILE_NAME=M2105_CEPOS.mzXML; RAW_FILE_NAME=M2105_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M2126	Factor:Monogenic obesity	RAW_FILE_NAME=M2126_LCPOS.mzXML; RAW_FILE_NAME=M2126_LCNEG.mzXML; RAW_FILE_NAME=M2126_GC.mzXML; RAW_FILE_NAME=M2126_CEPOS.mzXML; RAW_FILE_NAME=M2126_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M2178	Factor:Monogenic obesity	RAW_FILE_NAME=M2178_LCPOS.mzXML; RAW_FILE_NAME=M2178_LCNEG.mzXML; RAW_FILE_NAME=M2178_GC.mzXML; RAW_FILE_NAME=M2178_CEPOS.mzXML; RAW_FILE_NAME=M2178_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M2195	Factor:Monogenic obesity	RAW_FILE_NAME=M2195_LCPOS.mzXML; RAW_FILE_NAME=M2195_LCNEG.mzXML; RAW_FILE_NAME=M2195_GC.mzXML; RAW_FILE_NAME=M2195_CEPOS.mzXML; RAW_FILE_NAME=M2195_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M2220	Factor:Monogenic obesity	RAW_FILE_NAME=M2220_LCPOS.mzXML; RAW_FILE_NAME=M2220_LCNEG.mzXML; RAW_FILE_NAME=M2220_GC.mzXML; RAW_FILE_NAME=M2220_CEPOS.mzXML; RAW_FILE_NAME=M2220_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M1104	Factor:Monogenic obesity	RAW_FILE_NAME=M1104_LCPOS.mzXML; RAW_FILE_NAME=M1104_LCNEG.mzXML; RAW_FILE_NAME=M1104_GC.mzXML; RAW_FILE_NAME=M1104_CEPOS.mzXML; RAW_FILE_NAME=M1104_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M2253	Factor:Monogenic obesity	RAW_FILE_NAME=M2253_LCPOS.mzXML; RAW_FILE_NAME=M2253_LCNEG.mzXML; RAW_FILE_NAME=M2253_GC.mzXML; RAW_FILE_NAME=M2253_CEPOS.mzXML; RAW_FILE_NAME=M2253_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M2258	Factor:Monogenic obesity	RAW_FILE_NAME=M2258_LCPOS.mzXML; RAW_FILE_NAME=M2258_LCNEG.mzXML; RAW_FILE_NAME=M2258_GC.mzXML; RAW_FILE_NAME=M2258_CEPOS.mzXML; RAW_FILE_NAME=M2258_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M37	Factor:Monogenic obesity	RAW_FILE_NAME=M37_LCPOS.mzXML; RAW_FILE_NAME=M37_LCNEG.mzXML; RAW_FILE_NAME=M37_GC.mzXML; RAW_FILE_NAME=M37_CEPOS.mzXML; RAW_FILE_NAME=M37_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M393	Factor:Monogenic obesity	RAW_FILE_NAME=M393_LCPOS.mzXML; RAW_FILE_NAME=M393_LCNEG.mzXML; RAW_FILE_NAME=M393_GC.mzXML; RAW_FILE_NAME=M393_CEPOS.mzXML; RAW_FILE_NAME=M393_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M489	Factor:Monogenic obesity	RAW_FILE_NAME=M489_LCPOS.mzXML; RAW_FILE_NAME=M489_LCNEG.mzXML; RAW_FILE_NAME=M489_GC.mzXML; RAW_FILE_NAME=M489_CEPOS.mzXML; RAW_FILE_NAME=M489_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M516	Factor:Monogenic obesity	RAW_FILE_NAME=M516_LCPOS.mzXML; RAW_FILE_NAME=M516_LCNEG.mzXML; RAW_FILE_NAME=M516_GC.mzXML; RAW_FILE_NAME=M516_CEPOS.mzXML; RAW_FILE_NAME=M516_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M538	Factor:Monogenic obesity	RAW_FILE_NAME=M538_LCPOS.mzXML; RAW_FILE_NAME=M538_LCNEG.mzXML; RAW_FILE_NAME=M538_GC.mzXML; RAW_FILE_NAME=M538_CEPOS.mzXML; RAW_FILE_NAME=M538_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M539	Factor:Monogenic obesity	RAW_FILE_NAME=M539_LCPOS.mzXML; RAW_FILE_NAME=M539_LCNEG.mzXML; RAW_FILE_NAME=M539_GC.mzXML; RAW_FILE_NAME=M539_CEPOS.mzXML; RAW_FILE_NAME=M539_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M637	Factor:Monogenic obesity	RAW_FILE_NAME=M637_LCPOS.mzXML; RAW_FILE_NAME=M637_LCNEG.mzXML; RAW_FILE_NAME=M637_GC.mzXML; RAW_FILE_NAME=M637_CEPOS.mzXML; RAW_FILE_NAME=M637_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M759	Factor:Monogenic obesity	RAW_FILE_NAME=M759_LCPOS.mzXML; RAW_FILE_NAME=M759_LCNEG.mzXML; RAW_FILE_NAME=M759_GC.mzXML; RAW_FILE_NAME=M759_CEPOS.mzXML; RAW_FILE_NAME=M759_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M1116	Factor:Monogenic obesity	RAW_FILE_NAME=M1116_LCPOS.mzXML; RAW_FILE_NAME=M1116_LCNEG.mzXML; RAW_FILE_NAME=M1116_GC.mzXML; RAW_FILE_NAME=M1116_CEPOS.mzXML; RAW_FILE_NAME=M1116_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M803	Factor:Monogenic obesity	RAW_FILE_NAME=M803_LCPOS.mzXML; RAW_FILE_NAME=M803_LCNEG.mzXML; RAW_FILE_NAME=M803_GC.mzXML; RAW_FILE_NAME=M803_CEPOS.mzXML; RAW_FILE_NAME=M803_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M881	Factor:Monogenic obesity	RAW_FILE_NAME=M881_LCPOS.mzXML; RAW_FILE_NAME=M881_LCNEG.mzXML; RAW_FILE_NAME=M881_GC.mzXML; RAW_FILE_NAME=M881_CEPOS.mzXML; RAW_FILE_NAME=M881_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M908	Factor:Monogenic obesity	RAW_FILE_NAME=M908_LCPOS.mzXML; RAW_FILE_NAME=M908_LCNEG.mzXML; RAW_FILE_NAME=M908_GC.mzXML; RAW_FILE_NAME=M908_CEPOS.mzXML; RAW_FILE_NAME=M908_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M913	Factor:Monogenic obesity	RAW_FILE_NAME=M913_LCPOS.mzXML; RAW_FILE_NAME=M913_LCNEG.mzXML; RAW_FILE_NAME=M913_GC.mzXML; RAW_FILE_NAME=M913_CEPOS.mzXML; RAW_FILE_NAME=M913_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M962	Factor:Monogenic obesity	RAW_FILE_NAME=M962_LCPOS.mzXML; RAW_FILE_NAME=M962_LCNEG.mzXML; RAW_FILE_NAME=M962_GC.mzXML; RAW_FILE_NAME=M962_CEPOS.mzXML; RAW_FILE_NAME=M962_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M996	Factor:Monogenic obesity	RAW_FILE_NAME=M996_LCPOS.mzXML; RAW_FILE_NAME=M996_LCNEG.mzXML; RAW_FILE_NAME=M996_GC.mzXML; RAW_FILE_NAME=M996_CEPOS.mzXML; RAW_FILE_NAME=M996_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M1120	Factor:Monogenic obesity	RAW_FILE_NAME=M1120_LCPOS.mzXML; RAW_FILE_NAME=M1120_LCNEG.mzXML; RAW_FILE_NAME=M1120_GC.mzXML; RAW_FILE_NAME=M1120_CEPOS.mzXML; RAW_FILE_NAME=M1120_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M1145	Factor:Monogenic obesity	RAW_FILE_NAME=M1145_LCPOS.mzXML; RAW_FILE_NAME=M1145_LCNEG.mzXML; RAW_FILE_NAME=M1145_GC.mzXML; RAW_FILE_NAME=M1145_CEPOS.mzXML; RAW_FILE_NAME=M1145_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M1147	Factor:Monogenic obesity	RAW_FILE_NAME=M1147_LCPOS.mzXML; RAW_FILE_NAME=M1147_LCNEG.mzXML; RAW_FILE_NAME=M1147_GC.mzXML; RAW_FILE_NAME=M1147_CEPOS.mzXML; RAW_FILE_NAME=M1147_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	M1176	Factor:Monogenic obesity	RAW_FILE_NAME=M1176_LCPOS.mzXML; RAW_FILE_NAME=M1176_LCNEG.mzXML; RAW_FILE_NAME=M1176_GC.mzXML; RAW_FILE_NAME=M1176_CEPOS.mzXML; RAW_FILE_NAME=M1176_CENEG.mzXML
+SUBJECT_SAMPLE_FACTORS           	-	QC	Factor:Quality control	RAW_FILE_NAME=QC_LCPOS.mzXML; RAW_FILE_NAME=QC_LCNEG.mzXML; RAW_FILE_NAME=QC_GC.mzXML; RAW_FILE_NAME=QC_CEPOS.mzXML; RAW_FILE_NAME=QC_CENEG.mzXML
+#COLLECTION
+CO:COLLECTION_SUMMARY            	A 12‐hour fasting serum sample (drawn, immediately processed, aliquoted and
+CO:COLLECTION_SUMMARY            	stored at −80°C until assayed) was used.
+CO:SAMPLE_TYPE                   	Blood (serum)
+CO:STORAGE_CONDITIONS            	-80℃
+#TREATMENT
+TR:TREATMENT_SUMMARY             	N/A
+#SAMPLEPREP
+SP:SAMPLEPREP_SUMMARY            	For LC-MS analysis, 40 µL of serum was mixed with 800 µL of a cold mixture
+SP:SAMPLEPREP_SUMMARY            	(-20ºC) of methanol:MTBE:Chloroform (1.33:1:1, v/v/v) with Sphinganine (D17:0)
+SP:SAMPLEPREP_SUMMARY            	and palmitic acid-d31 as internal standards. Samples were vortexed for 30 s and
+SP:SAMPLEPREP_SUMMARY            	shaken for 20 min at maximum speed at room temperature. Next, samples were
+SP:SAMPLEPREP_SUMMARY            	centrifuged (13,200 rpm, room temperature, 5 min). After centrifugation,
+SP:SAMPLEPREP_SUMMARY            	supernatant was directly injected into the system. For GC-MS analysis, protein
+SP:SAMPLEPREP_SUMMARY            	precipitation was achieved by mixing 1 volume of serum with 3 volumes of cold
+SP:SAMPLEPREP_SUMMARY            	(-20ºC) acetonitrile with 25 ppm of palmitic acid-d31 as internal standard,
+SP:SAMPLEPREP_SUMMARY            	followed by methoximation with O-methoxyamine hydrochloride (15 mg/mL) in
+SP:SAMPLEPREP_SUMMARY            	pyridine, and sylation with BSTFA: TMCS (99:1). Finally, 20 ppm of tricosane in
+SP:SAMPLEPREP_SUMMARY            	heptane was added as second internal standard. For CE-MS analysis, 100 µL of
+SP:SAMPLEPREP_SUMMARY            	serum was mixed with 100 µL of 0.2 M formic acid containing 5% acetonitrile and
+SP:SAMPLEPREP_SUMMARY            	0.4 mM methionine sulfone, 2 mM paracetamol and 0.5 mM
+SP:SAMPLEPREP_SUMMARY            	4-Morpholineethanesulfonic acid, 2-(N-Morpholino) ethanesulfonic acid (MES) as
+SP:SAMPLEPREP_SUMMARY            	internal standards. The sample was transferred to an ultracentrifugation device
+SP:SAMPLEPREP_SUMMARY            	(Millipore Ireland Ltd., Carrigtohill, Ireland) with a 30 kDa protein cutoff for
+SP:SAMPLEPREP_SUMMARY            	deproteinization through centrifugation (2000 × g, 4 °C, 90 min).
+#CHROMATOGRAPHY
+CH:CHROMATOGRAPHY_SUMMARY        	CE-MS NEG
+CH:CHROMATOGRAPHY_TYPE           	CE
+CH:INSTRUMENT_NAME               	Agilent 7100 CE
+CH:COLUMN_NAME                   	Agilent Technologies fused polyvinyl alcohol capillary PVA (total length, 97.6
+CH:COLUMN_NAME                   	cm; internal diameter, 50 µm)
+CH:SOLVENT_A                     	BGE (0.1 M formic acid solution)
+CH:SOLVENT_B                     	N/A
+CH:FLOW_GRADIENT                 	None
+CH:FLOW_RATE                     	None
+CH:COLUMN_TEMPERATURE            	20 ºC
+CH:INTERNAL_STANDARD             	methionine sulfone, paracetamol and 4-morpholineethanesulfonic acid,
+CH:INTERNAL_STANDARD             	2-(N-morpholino)ethanesulfonic acid (MES)
+CH:INTERNAL_STANDARD_MT          	methionine sulfone
+CH:ANALYTICAL_TIME               	55 min
+CH:CAPILLARY_VOLTAGE             	-30 KV
+CH:SHEATH_LIQUID                 	Methanol: water (1:1, v/v) and two reference masses (20 μL of purine: 121.0509
+CH:SHEATH_LIQUID                 	and 20 μL of HP-0922: 922.0098) at a flow rate of 0.6 mL/min (1:100 of split
+CH:SHEATH_LIQUID                 	ratio)
+#ANALYSIS
+AN:ANALYSIS_TYPE                 	MS
+#MS
+MS:INSTRUMENT_NAME               	Agilent 6224 TOF
+MS:INSTRUMENT_TYPE               	TOF
+MS:MS_TYPE                       	EI
+MS:ION_MODE                      	NEGATIVE
+MS:MS_COMMENTS                   	. Mass spectrometry was operated in negative polarity, with a mass range
+MS:MS_COMMENTS                   	60–1000 m/z at a rate of 1.0 spectrum /s. Other parameters for the MS were:
+MS:MS_COMMENTS                   	fragmentor at 125 V, skimmer at 65 V, OctopoleRFPeak at 750 V, drying gas
+MS:MS_COMMENTS                   	temperature at 275 °C, flow at 10 L/min, nebulizer at 0 psig and capillary
+MS:MS_COMMENTS                   	voltage at 2000 V. The sheath liquid used consisted of methanol: water (1:1,
+MS:MS_COMMENTS                   	v/v) and two reference masses (20 μL of purine: 121.0509 and 20 μL of HP-0922:
+MS:MS_COMMENTS                   	922.0098) at a flow rate of 0.6 mL/min (1:100 of split ratio). The MS data in
+MS:MS_COMMENTS                   	negative ionization were acquired using the Agilent MassHunter Workstation
+MS:MS_COMMENTS                   	Software LC/MS Data Acquisition for 6200 series TOF/6500 series Q-TOF B
+MS:MS_COMMENTS                   	6.01.6172 SP1 (Agilent Technologies), and the raw data were inspected with the
+MS:MS_COMMENTS                   	MassHunter Qualitative software (version B.08.00, Agilent Technologies) before
+MS:MS_COMMENTS                   	data processing.
+MS:MS_RESULTS_FILE               	ST002993_AN004917_Results.txt	UNITS:Corrected areas	Has m/z:Neutral masses	Has RT:Yes	RT units:Minutes
+#END
