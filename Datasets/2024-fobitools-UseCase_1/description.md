@@ -1,12 +1,10 @@
 # Data source
 
-This dataset is used  by Pol Castellano, autor and maintainer of the [fobitools](https://www.bioconductor.org/packages/release/bioc/html/fobitools.html) Bioconductor package, in one its vignettes, [Use Case ST000291](https://www.bioconductor.org/packages/release/bioc/vignettes/fobitools/inst/doc/MW_ST000291_enrichment.html).
-
-Code for downloading the data using the MetabolomicsWorkbenchR package is available in the vignette,, but for consistency it is replicated in accompanying script `dataDownloadAndPrepare`
+This is data downlaoded from the metabolomics Workbench repository where it is stored with ID: ST000291
 
 # Data description
 
-The data consist of three separate files
+Once downloaded the data consists of three separate files
 
 - The features data
   - 1541 variables, 45 samples
