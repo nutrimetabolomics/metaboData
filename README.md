@@ -34,6 +34,4 @@ The spreadsheet DataC_atalog.xls is an attempyt to provide a quick description o
 
 - [The Bioconductor `metaRbolomics` Toolbox](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6835268/) A review of R/Bioc packages for managing and analyzing metabolomics data
 
-
-
 - [Global open data management in metabolomics](https://www.sciencedirect.com/science/article/pii/S1367593116302083#sec0020)
