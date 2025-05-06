@@ -1,4 +1,4 @@
-Data used in the paper "dentifying subgroups of childhood obesity by using multiplatform metabotyping"
+Data used in the paper "Identifying subgroups of childhood obesity by using multiplatform metabotyping"
 
 The data has been reposited in Metabolomics Worknbench with 
 
