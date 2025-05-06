@@ -502,5 +502,5 @@ table(Cluster = cluster_assignments, Obesity = obesity_type)
 save(se, res_mfa, factor_coords,  res_hcpc, file =file.path(results_dir, "ST002993_processed_objects.RData"))
 
 # Guardar tabla final
-write.csv(factor_coords,file.path(results_dir,"factor_matrix.csv"))
+write.csv(t(factor_coords),file.path(results_dir,"factor_matrix.csv"))
 ```

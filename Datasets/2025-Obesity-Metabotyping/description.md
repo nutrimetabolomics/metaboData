@@ -19,6 +19,6 @@ File: `code/Reanálisis_de_resultados_procesados-Estudio_ST002993.html` describe
 The resulting objects are
 
 - A `SummarizedExperiment`object with the preprocessed and normalized data as well as the metadata for rows (platforms) and columns (obesity type).
-- A `results_filtered_normalized.csv` text file with the 892 (metabolites) x 110 (samples) data.
+- A `results_filtered_normalized.csv` text file with the 892 (metabolites) x 110 (samples) filtered and normalñized data.
 - A file `factor_matrix.csv` with a  5 (latent factors) x 110 (samples)   matrix produced by the multiple factor analysis that can be taken as the basis for metabotype construction. 
 

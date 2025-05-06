@@ -1,0 +1,767 @@
+---
+title: Multi-Omics Data Analysis Workshop (Part II)
+author: "Alex Sanchez-Pla, Francesc Carmona, Pol Castellano"
+date: "July 2021 (Update April 2025)"
+output:
+# prettydoc::html_pretty:
+   html_document:
+    code_folding: hide
+    toc: true
+    toc_depth: 3
+    theme: darkly
+    highlight: textmate
+    number_sections: true
+editor_options: 
+  chunk_output_type: console
+# bibliography: references.bib
+# link-citations: yes
+# theme args should be one of: "default", "cerulean", "journal", "flatly", "darkly", "readable", "spacelab", "united", "cosmo", "lumen", "paper", "sandstone", "simplex", "yeti"
+# highlight arg should be one of: "default", "tango", "pygments", "kate", "monochrome", "espresso", "zenburn", "haddock", "breezedark", "textmate"
+---
+
+```{r setup, include=FALSE}
+require(knitr)
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, comment = NA, prompt = TRUE, tidy = FALSE, fig.width = 7, fig.height = 7, fig_caption = TRUE,cache=FALSE)
+Sys.setlocale("LC_TIME", "C")
+```
+
+```{r packages, include=FALSE}
+# require(devtools)
+# if(!require(installifnot)) install_github("uebvhir/installifnot")
+```
+
+# Workshop structure
+
+## Instructor Names
+
+-   Alex Sánchez ([asanchez\@ub.edu](mailto:asanchez@ub.edu){.email})
+-   Francesc Carmona ([fcarmona\@ub.edu](mailto:fcarmona@ub.edu){.email}),
+-   Pol Castellano ([pcastellano\@gmail](mailto:pcastellano@gmail){.email},com)
+
+## Workshop Description
+
+The workshop works through a pipeline that investigates the structure of a single or multiple omics dataset in order to determine the association between omics and phenotype characteristics such as disease type.
+
+### Pre-requisites
+
+-   Good knowledge of R and familiarity with dimension reduction techniques.
+-   Familiarity with omics techniques and Bioconductor is a plus.
+
+### Workshop Participation
+
+Execution of example code and hands-on practice
+
+### R/Bioconductor packages needed
+
+The workshop requires a series of R and Bioconductor packages.
+
+**Before you start** run the script `InstallPackages.R` available in the project main folder.
+
+### Time outline
+
+```{r}
+library(dbplyr)
+outline <- c("Workshop presentation and Overview", "10m",
+"Exploring single omics datasets", "20m",
+"Building a SummarizedExperiment from scratch",	"10m",
+"TCGA multi-assay dataset", "10m",
+"Multiple Factor Analysis and iCluster", "30m",
+"Enrichment Analysis and Factor interpretation",	"20m")
+
+timeTable<- matrix(outline, ncol=2, byrow = TRUE)
+colnames(timeTable) <- c("Activity", "Time")
+
+kableExtra::kable(timeTable) %>% kableExtra::kable_styling()
+```
+
+## Workshop goals and objectives
+
+### Learning goals
+
+-   The general goal is to become familiar on how to use matrix factorization techniques using R.
+-   A secondary optional goal is become familiar with some Bioconductor data structures such as `SummarizedExperiment` or `MultiAssayData` created to facilitate the management of single or multi-omics data.
+
+### Learning objectives
+
+-   Learn to apply a variety of singl and multiple matrix factorization techniques
+-   Understand the difference between PCA, ICA and NMF through some examples
+-   Understand why we may need to ressort to multi-omics analysis and how to do using either MFA or joint matrix factorization
+-   Learn how to attempt a biological interpretation of single or multi-omics using enrichment analysis.
+-   Learn how to create and use objects of classes `SuimmarizedExperiment` and `MultiAssayData` to store and manipulate omics data.
+
+## Resources and links
+
+## Source of the examples
+
+The examples used in the workshop have been extracted from two sources
+
+-   Chapters 4 and 11 of the excellent book [Computational Genomics with R](https://compgenomr.github.io/book/) which we will address as "CompGenomR".
+- The package `compGenomRData` available at the [book github repository](https://github.com/compgenomr/compGenomRData) contains the data for most of the examples.
+
+```{r}
+if (!require(compGenomRData))
+  devtools::install_github("compgenomr/compGenomRData")
+```
+
+-   The suplementary materials from the paper [Enter the Matrix: Factorization uncovers knowledge from omics](https://www.sciencedirect.com/science/article/pii/S0168952518301240). The paper contains very nice examples but unfortunately (oh surprise!) I have been unable to find the data.
+- Some tutorials and materials scattered in the web:
+  - [Tutorial on SummarizedExperiment](https://www.bioconductor.org/help/course-materials/2019/BSS2019/04_Practical_CoreApproachesInBioconductor.html)
+  - [Introduction to Pathway Analysis with Bioconductor](https://github.com/ASPteaching/An-Introduction-to-Pathway-Analysis-with-R-and-Bioconductor)
+
+
+### Bioc-2018
+
+<https://bioconductor.github.io/BiocWorkshops/workflow-for-multi-omics-analysis-with-multiassayexperiment.html>
+
+<https://bioconductor.github.io/BiocWorkshops/functional-enrichment-analysis-of-high-throughput-omics-data.html>
+
+# Part II. Multi-Omics Analysis
+
+## Use case: multi-omics data for colo-rectal cancer
+
+For this use case we use thre distinct omics that have been downloaded from the TCGA database. 
+Notice that the data matrices are transposed with respect the one we used above. 
+
+This allows joining the distinct omics by their common dimension, the samples.
+
+The omics data used are:
+
+- _Gene expression (RNA-seq) data_ The rows correspond to patients, referred to by their TCGA identifier, as the first column of the table. Columns represent the genes, and the values are RPKM normalized expression values. The column names are the names or symbols of the genes.
+
+- _Mutation Data_ In the mutation matrix, each cell is a binary 1/0, indicating whether or not a tumor has a non-synonymous mutation in the gene indicated by the column. These types of mutations change the aminoacid sequence, therefore they are likely to change the function of the protein.
+  
+- _Copy Number Variation data_ During transformation from healthy cells to cancer cells, the genome sometimes undergoes large-scale instability; large segments of the genome might be replicated or lost. This will be reflected in each segment’s “copy number”. In this matrix, each column corresponds to a chromosome segment, and the value of the cell is a real-valued score indicating if this segment has been amplified (copied more) or lost, relative to a non-cancer control from the same patient.
+
+```{r}
+library(stringi)
+myDir <- getwd() 
+myDir <-unlist(stri_split_regex(myDir, "/"))
+currDir <- myDir[length(myDir)]
+if (currDir=="202107-GRBio-Integration-Workshop") setwd("lab-Matrix_factorization")
+
+library(magrittr)
+# read in the csv from the multi-omics-folder
+csvfile <- "datasets/multi-omics/COREAD_CMS13_gex.csv" 
+x1 <- read.csv(csvfile, row.names=1)
+# Fix the gene names in the data frame
+rownames(x1) <- sapply(strsplit(rownames(x1), "\\|"), function(x) x[1])
+# Output a table
+knitr::kable(head(t(head(x1))), caption="Example gene expression data (head)") %>% kableExtra::kable_styling() 
+
+
+## ------------------------------------------------------------------------------------------------------------
+csvfile <- "datasets/multi-omics/COREAD_CMS13_muts.csv"
+x2 <- read.csv(csvfile, row.names=1)
+# Set mutation data to be binary (so if a gene has more than 1 mutation,
+# we only count one)
+x2[x2>0]=1
+# output a table
+knitr::kable(head(t(head(x2))), caption="Example mutation data (head)") %>% kableExtra::kable_styling()
+
+
+## ------------------------------------------------------------------------------------------------------------
+# read in the csv from the companion package as a data frame
+csvfile <- "datasets/multi-omics/COREAD_CMS13_cnv.csv"
+x3 <- read.csv(csvfile, row.names=1)
+# output a table
+knitr::kable(head(t(head(x3))), 
+             caption="Example copy number data for CRC samples") %>% kableExtra::kable_styling()
+
+
+## ------------------------------------------------------------------------------------------------------------
+# read in the csv from the companion package as a data frame
+csvfile <- system.file("extdata", "multi-omics", "COREAD_CMS13_subtypes.csv", package="compGenomRData")
+covariates <- read.csv(csvfile, row.names=1)
+# Fix the TCGA identifiers so they match up with the omics data
+rownames(covariates) <- gsub(pattern = '-', replacement = '\\.',
+                             rownames(covariates))
+covariates <- covariates[colnames(x1),]
+# create a dataframe which will be used to annotate later graphs
+anno_col <- data.frame(cms=as.factor(covariates$cms_label))
+rownames(anno_col) <- rownames(covariates)
+# output a table
+knitr::kable(head(anno_col), 
+             caption="Clinical information (covariates)")
+
+```
+
+#### Explore individual datasets
+
+Gene Expression data
+
+```{r}
+pheatmap::pheatmap(x1,
+                   annotation_col = anno_col,
+                   show_colnames = FALSE,
+                   show_rownames = FALSE,
+                   main="Gene expression data")
+```
+
+Mutation data
+
+```{r}
+## ------------------------------------------------------------------------------------------------------------
+pheatmap::pheatmap(x2,
+                   annotation_col = anno_col,
+                   show_colnames = FALSE,
+                   show_rownames = FALSE,
+                   main="Mutation data")
+```
+
+Copy number data
+
+```{r}
+## ------------------------------------------------------------------------------------------------------------
+pheatmap::pheatmap(x3,
+                   annotation_col = anno_col,
+                   show_colnames = FALSE,
+                   show_rownames = FALSE,
+                   main="Copy number data")
+
+```
+
+## Matrix factorization methods for unsupervised multiomics integration
+
+### Multiple Factor Analysis
+
+Simply stated MFA is an extension of PCA to a multi-omics dataset.
+
+Given that the distinct experiments have distinct scalesand distinct variances we scale each dataset by doing:
+$$
+X_n=\left[
+\begin{array}{c}
+X_1/\lambda_1^{(1)} \\
+X_2/\lambda_1^{(2)} \\
+\vdots \\
+X_L/\lambda_1^{(L)}
+\end{array}
+\right]
+= WH
+$$
+
+where $\lambda_1^{(i)}$is the first eigenvalue obtained when computing the PCA from $X_i$.
+
+MFA can be run using the `FactoMineR` package.
+
+Each multi-omics method may require a different way to provide data. In the case of MFA it is expected that the data is a numeric matrix with several groups of columns corresponding to the multiple groups of variables and a unique group of rows corresponding to the samples or individuals on which each group of omics has been measured.
+
+That is if we start from:
+
+```{r}
+cat("Expression\n")
+dim(x1)
+cat("Mutations\n")
+dim(x2)
+cat("CNVs")
+dim(x3)
+```
+
+The resulting joint data matrix will be obtaine by merging the three datasets and then transposing them to cope with the structure required by MFA.
+
+```{r}
+jointData <- t(rbind(x1,x2,x3))
+groups <- c(dim(x1)[1], dim(x2)[1], dim(x3)[1])
+groupNames <- c("Expression", "Mutations", "CNVs" )
+names(groups) =groupNames
+```
+
+```{r}
+## -----------------------------
+library(FactoMineR)
+
+# run the MFA function from the FactoMineR package
+r.mfa <- MFA(
+  base=jointData,
+  group=groups,
+  name.group = groupNames,
+  graph=FALSE)
+```
+
+```{r}
+library(factoextra)
+fviz_screeplot(r.mfa, addlabels = TRUE, ylim = c(0, 50))
+```
+
+
+```{r}
+## ------------------------------------------------------------------------------------------------------------
+# first, extract the H and W matrices from the MFA run result
+mfa.h <- r.mfa$global.pca$ind$coord
+mfa.w <- r.mfa$quanti.var$coord
+
+# create a dataframe with the H matrix and the CMS label
+mfa_df <- as.data.frame(mfa.h)
+mfa_df$subtype <- factor(covariates[rownames(mfa_df),]$cms_label)
+
+# create the plot
+ggplot2::ggplot(mfa_df, ggplot2::aes(x=Dim.1, y=Dim.2, color=subtype)) +
+ggplot2::geom_point() + ggplot2::ggtitle("Scatter plot of MFA")
+
+
+## ------------------------------------------------------------------
+pheatmap::pheatmap(t(mfa.h)[1:2,], annotation_col = anno_col,
+                  show_colnames = FALSE,
+                  main="MFA for multi-omics integration")
+```
+
+
+Although this is the approach suggested in the book, MFA is more flexible than others and allows combining continuos and categorical variables in the analysis, as well as supplementary variables such as the tumor type.
+
+```{r}
+# 2. Preparar data.frame y añadir variable cualitativa
+X_df <- as.data.frame(jointData)
+X_df$subtype <- factor(covariates[rownames(mfa_df),]$cms_label)
+```
+
+
+```{r}
+# 3. Definir grupos
+group_sizes <- c(groups, 1)
+group_types <- c(rep("c", 3), "n")  # última es cualitativa
+group_names <- c(names(groups), "tumourType")
+```
+
+
+```{r}
+# 4. Ejecutar MFA
+res_mfa <- MFA(
+  base = X_df,
+  group = group_sizes,
+  type = group_types,
+  name.group = group_names,
+  num.group.sup = length(group_sizes),  # última posición es suplementaria
+  graph = FALSE
+)
+```
+
+```{r}
+# 5. Visualizar individuos (muestras)
+fviz_mfa_ind(
+  res_mfa,
+  habillage = "subtype",
+  addEllipses = TRUE,
+  palette = c("red", "blue"),  # Colores personalizados
+  label = "none",              # No mostrar etiquetas de muestras
+  repel = FALSE,
+  title = "MFA - Muestras coloreadas por tipo de tumor"
+)
+```
+
+
+```{r}
+# Extraer información de variables y grupos
+mfa_vars <- get_mfa_var(res_mfa)
+
+# Visualizar contribución de grupos a los ejes (automáticamente)
+fviz_mfa_var(
+  res_mfa,
+  "group",
+  palette = "Dark2",
+  title = "Contribución de los grupos a los componentes"
+)
+```
+
+#### Matriz de factores
+
+El análisis factorial (múltiple) genera una nueva matriz con las mismas filas y los factores o variables latentes como columnas.
+
+Esta nueva matriz puede utilizarse de forma implícita o explícita para análisis posteriores como la búsqueda de metabotipos.
+
+```{r}
+factor_coords <- res_mfa$ind$coord
+
+# Ver dimensiones
+dim(factor_coords)
+
+# Visualizar primeras filas
+head(factor_coords)
+```
+
+#### Exportacion para posteriores analisis
+
+Podemos exportar los datos como un `summarizedExperiment`
+
+```{r}
+# Instala si no tienes SummarizedExperiment
+if (!requireNamespace("SummarizedExperiment", quietly = TRUE)) {
+  BiocManager::install("SummarizedExperiment")
+}
+library(SummarizedExperiment)
+
+# 1. assays: usamos jointData
+mat <- jointData  # (features x samples)
+
+# 2. colData: tipo de ómica para cada fila
+# Creamos un vector que repita el nombre del grupo tantas veces como features tenga
+omics_group <- rep(group_names[1:length(groups)], times = groups)
+col_data <- DataFrame(omics_type = omics_group)
+
+# 3. rowData: anotación de muestras (subtipo tumoral)
+# Nota: las muestras están en las columnas de jointData, así que la información va en rowData del SummarizedExperiment
+subtypes <- X_df$subtype
+names(subtypes) <- rownames(X_df)
+row_data <- DataFrame(subtype = subtypes)
+
+# 4. Construcción del objeto
+se <- SummarizedExperiment::SummarizedExperiment(
+  assays = list(counts = as.matrix(mat)),
+  colData = col_data,
+  rowData = row_data
+)
+
+# 5. Guardar en un archivo .Rda
+save(se, file = "datasets/multi-omics/multiomics_MFA_SummarizedExperiment.Rda")
+```
+
+De forma análoga podemos exportar los resultados del MFA para su posterior uso en estudios de clustering.
+
+Una manera elegante de hacerlo es usando un objeto de clase `MultiAssayExperiment` que tenga una capa por cada ómica y una quinta que sean los resultados del MFA.
+
+```{r}
+## Exportación a MultiAssayExperiment
+
+# Cargar el paquete necesario
+if (!requireNamespace("MultiAssayExperiment", quietly = TRUE)) {
+  BiocManager::install("MultiAssayExperiment")
+}
+library(MultiAssayExperiment)
+
+# Asegurarse de que las matrices originales y los factores estén definidos
+# - x1: expresión génica
+# - x2: mutaciones
+# - x3: CNVs
+# - factor_coords: coordenadas de MFA con muestras en filas
+# - covariates: contiene los subtipos CMS para cada muestra
+
+# Crear la lista de assays
+assay_list <- list(
+  Expression = as.matrix(x1),
+  Mutations  = as.matrix(x2),
+  CNVs       = as.matrix(x3),
+  MFA        = as.matrix(t(factor_coords))
+)
+
+# Crear el colData con los subtipos tumorales
+sample_annot <- DataFrame(subtype = factor(covariates$cms_label))
+rownames(sample_annot) <- rownames(covariates)
+
+# Construir el objeto MultiAssayExperiment
+mae <- MultiAssayExperiment::MultiAssayExperiment(
+  experiments = ExperimentList(assay_list),
+  colData = sample_annot
+)
+```
+
+```{r}
+# Verificamos el contenido del objeto MAE
+mae
+summary(mae)
+colData(mae)
+experiments(mae)
+```
+
+
+```{r}
+# Guardar el objeto en disco
+save(mae, file = "datasets/multi-omics/multiomics_MFA_MultiAssayExperiment.Rda")
+```
+
+
+
+### Joint Non negative Matrix Factorization
+
+NMF has the form $X\approx WH$,  
+$X\ge 0$, $W\ge 0$, y $H\ge 0$. 
+
+Non-negative constraints make a lossless decomposition (that is, $ X = WH $) generally impossible. Therefore,  NMF tries to find a solution that minimizes the Frobenius norm (matrix Euclidean norm) of the reconstruction:
+$$
+\min\|X-WH\|_F \qquad
+W\ge 0,
+H\ge 0
+$$
+
+As with MFA, in the context of multi-omic data, the idea is to find a decomposition of the joint matrix.
+Also here one normalizes each data matrix separately
+
+$$
+X=\left[
+\begin{array}{c}
+X_1^N/\alpha_1 \\
+X_2^N/\alpha_2 \\
+\vdots \\
+X_L^N/\alpha_L
+\end{array}
+\right]
+$$
+where $X_i^N$ is the normalized dat matrix $X_i^N=\frac{x^{ij}}{\sum_j x^{ij}}$ y $\alpha_i=\|X_i^N\|_F$.
+
+NMF is applied to the joint matrix $X$.
+
+```{r jointNMF}
+## ----warning=FALSE-------------------------------------------------------------------------------------------
+# Feature-normalize the data
+x1.featnorm <- x1 / rowSums(x1)
+x2.featnorm <- x2 / rowSums(x2)
+x3.featnorm <- x3 / rowSums(x3)
+
+# Normalize by each omics type's frobenius norm
+matExpr<-x1.featnorm.frobnorm <- x1.featnorm / norm(as.matrix(x1.featnorm), type="F")
+matSNP<-x2.featnorm.frobnorm <- x2.featnorm / norm(as.matrix(x2.featnorm), type="F")
+matCNV<-x3.featnorm.frobnorm <- x3.featnorm / norm(as.matrix(x3.featnorm), type="F")
+
+# Split the features of the CNV matrix into two non-negative features each
+split_neg_columns <- function(df) {
+  n <- dim(df)[1]
+  k <- dim(df)[2]
+  df2 <- matrix(rep(0, n*2*k), ncol=2*k)
+  for (i in 1:k){
+    df2[,2*i-1] <- pmax(df[,i],0)
+    df2[,2*i]   <- pmax(-df[,i], 0)
+  }
+  as.data.frame(df2)
+}
+matCNVpos<- x3.featnorm.frobnorm.nonneg <- t(split_neg_columns(t(x3.featnorm.frobnorm)))
+colnames(matCNVpos) <- colnames(x3.featnorm.frobnorm.nonneg) <- colnames(x3.featnorm.frobnorm)
+
+# run the nmf function from the NMF package
+require(NMF)
+jointNames <-data.frame(exprNames = colnames(matExpr),
+                        snpNames = colnames(matSNP),
+                        cnvNames = colnames(matCNVpos)
+                        )
+jointMat <- rbind(matExpr, matSNP, matCNVpos)
+                     
+r.nmf <- nmf(t(jointMat),
+             2,
+             method='Frobenius')
+```
+
+Extract the H and W matrices from the nmf run result
+
+```{r}
+nmf.h <- NMF::basis(r.nmf)
+nmf.w <- NMF::coef(r.nmf)
+nmfw <- t(nmf.w)
+```
+
+Create a dataframe with the H matrix and the CMS label (subtype)
+
+```{r}
+nmf_df <- as.data.frame(nmf.h)
+colnames(nmf_df) <- c("dim1", "dim2")
+nmf_df$subtype <- factor(covariates[rownames(nmf_df),]$cms_label)
+```
+
+Create the scatter plot
+
+```{r}
+ggplot2::ggplot(nmf_df, ggplot2::aes(x=dim1, y=dim2, color=subtype)) +
+ggplot2::geom_point() +
+ggplot2::ggtitle("Scatter plot of 2-component NMF for multi-omics integration")
+```
+
+```{r}
+pheatmap::pheatmap(t(nmf_df[,1:2]),
+                   annotation_col = anno_col,
+                   show_colnames=FALSE,
+                   main="Heatmap of 2-component NMF")
+```
+
+### iCluster
+
+iCluster is an integrative clustering method intended to account for the heterogeneity in the joint data matrix.
+
+iCluster+ learns factors which allow tumor sub-types CMS1 and CMS3 to be discriminated.
+
+Sketch of iCluster model. Each omics datatype is decomposed to a coefficient matrix and a shared latent variable matrix, plus noise.
+
+```{r}
+knitr::include_graphics("images/icluster.png" )
+```
+
+```{r integrativeClustering}
+# Instala si no tienes SummarizedExperiment
+if (!requireNamespace("iClusterPlus", quietly = TRUE)) {
+  BiocManager::install("iClusterPlus")
+}
+library(iClusterPlus)
+
+# run the iClusterPlus function
+r.icluster <- iClusterPlus::iClusterPlus(
+  t(x1), # Providing each omics type
+  t(x2),
+  t(x3),
+  type=c("gaussian", "binomial", "multinomial"), # Providing the distributions
+  K=2, # provide the number of factors to learn
+  alpha=c(1,1,1), # as well as other model parameters
+  lambda=c(.03,.03,.03)
+  )
+# extract the H and W matrices from the run result
+# here, we refer to H as z, to keep with iCluster terminology
+icluster.z <- r.icluster$meanZ
+rownames(icluster.z) <- rownames(covariates) # fix the row names
+icluster.ws <- r.icluster$beta
+# construct a dataframe with the H matrix (z) and the cancer subtypes
+# for later plotting
+icp_df <- as.data.frame(icluster.z)
+colnames(icp_df) <- c("dim1", "dim2")
+rownames(icp_df) <- colnames(x1)
+icp_df$subtype <- factor(covariates[rownames(icp_df),]$cms_label)
+```
+
+```{r, moiclusterplusscatter,fig.cap="iCluster+ learns factors which allow tumor sub-types CMS1 and CMS3 to be discriminated.", echo=FALSE}
+
+ggplot2::ggplot(icp_df, ggplot2::aes(x=dim1, y=dim2, color=subtype)) +
+ggplot2::geom_point() +
+ggplot2::ggtitle("Scatter plot of iCluster+ factors")
+```
+
+iCluster+ factors, shown in a heatmap, separate tumors into their subtypes well
+
+```{r iclusterFactors}
+pheatmap::pheatmap(t(icp_df[,1:2]),
+                   annotation_col = anno_col, 
+                   show_colnames = FALSE,border_color = NA,
+                   main="Heatmap of iCluster+ factors")
+
+```
+
+## Clustering using latent factors
+
+### One-Hot Clustering
+
+one-hot clustering assigns each sample the cluster according to its dominant NMF factor.
+
+It is easily accessible using the max.col function
+
+```{r}
+nmf.clusters <- max.col(nmf.h)
+names(nmf.clusters) <- rownames(nmf.h)
+
+# create an annotation data frame indicating the NMF one-hot clusters
+# as well as the cancer subtypes, for the heatmap plot below
+anno_nmf_cl <- data.frame(
+  nmf.cluster=factor(nmf.clusters),
+  cms.subtype=factor(covariates[rownames(nmf.h),]$cms_label)
+)
+
+# generate the plot
+pheatmap::pheatmap(t(nmf.h[order(nmf.clusters),]),
+  cluster_cols=FALSE, cluster_rows=FALSE,
+  annotation_col = anno_nmf_cl,
+  show_colnames = FALSE,border_color=NA,
+  main="Joint NMF factors\nwith clusters and molecular subtypes")
+```
+
+### K-Means
+
+use the kmeans function to cluster the iCluster H matrix (here, z) using 2 as the number of clusters.
+
+```{r}
+icluster.clusters <- kmeans(icluster.z, 2)$cluster
+names(icluster.clusters) <- rownames(icluster.z)
+
+# create an annotation dataframe for the heatmap plot
+# containing the kmeans cluster assignments and the cancer subtypes
+anno_icluster_cl <- data.frame(
+  iCluster=factor(icluster.clusters),
+  cms.subtype=factor(covariates$cms_label))
+
+# generate the figure
+pheatmap::pheatmap(
+  t(icluster.z[order(icluster.clusters),]), # order z by the kmeans clusters
+  cluster_cols=FALSE, # use cluster_cols and cluster_rows=FALSE
+  cluster_rows=FALSE, # as we want the ordering by k-means clusters to hold
+  show_colnames = FALSE,border_color=NA,
+  annotation_col = anno_icluster_cl,
+  main="iCluster factors\nwith clusters and molecular subtypes")
+```
+
+## Biological interpretation of latent factors
+
+### Inspection of feature weights in loading vectors
+
+The Heatmap below shows the association of input features from multi-omics data (gene expression, copy number variation, and mutations), with JNMF factors. Gene expression features dominate both factors, but copy numbers and mutations mostly affect only one factor each.
+
+```{r}
+# create an annotation dataframe for the heatmap
+# for each feature, indicating its omics-type
+data_anno <- data.frame(
+  omics=c(rep('expression',dim(x1)[1]),
+          rep('mut',dim(x2)[1]),
+          rep('cnv',dim(x3.featnorm.frobnorm.nonneg)[1])))
+rownames(data_anno) <- c(rownames(x1),
+                         paste0("mut:", rownames(x2)),
+                         rownames(x3.featnorm.frobnorm.nonneg))
+rownames(nmfw) <- rownames(data_anno)
+# generate the heat map
+pheatmap::pheatmap(nmfw,
+                   cluster_cols = FALSE,
+                   annotation_row = data_anno,
+                   main="NMF coefficients",
+                   clustering_distance_rows = "manhattan",
+                   fontsize_row = 1)
+```
+
+### Making sense of factors using enrichment analysis
+
+Enrichment ANalysis provides a view of biological processes of pathways related with selected genes or metagenes
+
+```{r}
+# select genes associated preferentially with each factor
+# by their relative loading in the W matrix
+library(enrichR)
+genes.factor.1 <- names(which(nmfw[1:dim(x1)[1],1] > nmfw[1:dim(x1)[1],2]))
+genes.factor.2 <- names(which(nmfw[1:dim(x1)[1],1] < nmfw[1:dim(x1)[1],2]))
+# call the enrichr function to find gene sets enriched
+# in each latent factor in the GO Biological Processes 2018 library
+go.factor.1 <- enrichr(genes.factor.1,
+                                databases = c("GO_Biological_Process_2018")
+                                )$GO_Biological_Process_2018
+go.factor.2 <- enrichr(genes.factor.2,
+                                databases = c("GO_Biological_Process_2018")
+                                )$GO_Biological_Process_2018
+
+```
+
+The top GO-Terms associated with the selected factors are shown below.
+
+```{r}
+library(kableExtra)
+go.factor.2$Genes <- gsub(";", "; ", go.factor.2$Genes)
+the.table <- knitr::kable(head(go.factor.2, 3)[,c("Term", "Adjusted.P.value", "Combined.Score")],
+                 caption="GO-terms associated with NMF factor 2",
+                 format="latex")
+#the.table <- kableExtra::column_spec(the.table, 1, width="10em")
+the.table <- kableExtra::kable_styling(the.table ,latex_options = c( "scale_down"))
+#the.table <- kableExtra::column_spec(the.table, 4, width="10em")
+the.table
+```
+
+### Relating factors with clinical covariates
+
+Box plot showing MSI/MSS status distribution and NMF factor 1 values
+
+```{r}
+# create a data frame holding covariates (age, gender, MSI status)
+a <- data.frame(age=covariates$age,
+                gender=as.numeric(covariates$gender),
+                msi=covariates$msi)
+b <- nmf.h
+colnames(b) <- c('factor1', 'factor2')
+# concatenate the covariate dataframe with the H matrix
+cov_factor <- cbind(a,b)
+# generate the figure
+ggplot2::ggplot(cov_factor, ggplot2::aes(x=msi, y=factor1, group=msi)) +
+  ggplot2::geom_boxplot() +
+  ggplot2::ggtitle("NMF factor 1 microsatellite instability")
+```
+
+Box plot showing MSI/MSS status distribution and NMF factor 2 values.
+
+```{r}
+ggplot2::ggplot(cov_factor, ggplot2::aes(x=msi, y=factor2, group=msi)) +
+  ggplot2::geom_boxplot() +
+  ggplot2::ggtitle("NMF factor 2 and microsatellite instability")
+
+```
